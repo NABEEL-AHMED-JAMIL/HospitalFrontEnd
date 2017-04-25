@@ -1,0 +1,26 @@
+<!--this is show the welcom to the doctor-->
+<!--body-->
+<div class="panel-body">
+
+    <div class="row">
+        <div class="col-sm-10">
+            <input *ngIf="config.filtering" placeholder="Search record by Mr# or Name or phone Number" [ngTableFiltering]="config.filtering" class="form-control" (tableChanged)="onChangeTable(config)" />
+        </div>
+    </div>
+
+    <br>
+    <div class="row-fluid">
+        <div>
+            <ng-table class="sortable" [config]="config" (tableChanged)="onChangeTable(config)" (cellClicked)="onCellClick($event)" [rows]="rows" [columns]="columns">
+
+            </ng-table>
+        </div>
+    </div>
+
+</div>
+<!--
+<div class="col-sm-4" *ngIf="confirmResult != null">
+    <span>Result: </span>
+    <b [ngClass]="{'text-danger': !confirmResult, 'text-success': confirmResult}">{{confirmResult ? 'Accepted': 'Declined'}}</b>
+</div>
+-->
