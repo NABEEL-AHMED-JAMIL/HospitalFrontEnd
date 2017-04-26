@@ -26,4 +26,15 @@ Before running the tests make sure you are serving the app via `ng serve`.
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
-# HospitalFrontEnd
+# About the Project
+This project is used my client which is the Docter he need the web base note's application for his patient customer.
+In this project the Docter login and register and the he can see the all patient history and the history of the patient note's.
+## ScreenShot
+![alt text](https://github.com/NABEEL-AHMED-JAMIL/HospitalFrontEnd/blob/master/screenshoot/Screenshot%20(382).png)
+![alt text](https://github.com/NABEEL-AHMED-JAMIL/HospitalFrontEnd/blob/master/screenshoot/Screenshot%20(383).png)
+![alt text](https://github.com/NABEEL-AHMED-JAMIL/HospitalFrontEnd/blob/master/screenshoot/Screenshot%20(384).png)
+![alt text](https://github.com/NABEEL-AHMED-JAMIL/HospitalFrontEnd/blob/master/screenshoot/Screenshot%20(385).png)
+![alt text](https://github.com/NABEEL-AHMED-JAMIL/HospitalFrontEnd/blob/master/screenshoot/Screenshot%20(386).png)
+#
+for more image you can find here https://github.com/NABEEL-AHMED-JAMIL/HospitalFrontEnd/tree/master/screenshoot
+
