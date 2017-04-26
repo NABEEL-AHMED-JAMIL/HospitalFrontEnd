@@ -32,8 +32,6 @@ export class RegisterComponent implements OnInit{
         });
     }
 
-    
-
     register() {
         this.loading = true;
         this.userService.create(this.model)

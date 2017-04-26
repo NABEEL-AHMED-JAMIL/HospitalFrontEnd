@@ -15,3 +15,7 @@ ul.nav li.active a {
 ul.unstyled li a {
     color: #fff;
 }
+
+.color-anchor {
+    color: #fff
+}

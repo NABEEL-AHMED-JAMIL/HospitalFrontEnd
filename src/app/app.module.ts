@@ -17,9 +17,11 @@ import { HomeComponent , HomeDialogComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import {RegisterComponent} from './register/index';
 import {AddNote , NoteDialogComponent} from './addNote/index';
+
 //----------------Service------------------------------
 import { AuthGuard } from './_guards/index';
-import { AlertService, AuthenticationService,DocterService , NoteService , PatientService , DocterTypeService} from './_services/index';
+import {SharedService, AlertService, AuthenticationService,DocterService , NoteService , PatientService , DocterTypeService} from './_services/index';
+
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import { AlertService, AuthenticationService,DocterService , NoteService , Patie
   ],
   providers: [
     AuthGuard,
+    SharedService,
     AlertService,
     AuthenticationService,
     DocterService,

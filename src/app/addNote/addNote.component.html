@@ -1,51 +1,35 @@
 <!--body-->
 <div class="panel-body">
-    <div>
-        <h3 style="color:#428bca; margin-left: 5px;">Mr #:- ({{patientMrNo}}) Patient Name:- ({{patientName}})</h3>
-    </div>
-    <br>
     <div class="row" *ngIf="newNote">
-        <div class="col-md-12 ">
-            <div class="row  classWithPadSide">
-                <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
-                    <button type="button" class="btn btn-default" (click)="back()">Back</button>
-                    <br>
-                    <div class="form-group">
-                        <label for="power">Select Note</label>
-                        <select class="form-control" id="noteType" [(ngModel)]="model.noteType" name="noteType" #noteType="ngModel" required>
-          <option *ngFor="let item of allOptionForNewNote" [value]="item.type">{{item.type}}</option>
+        <div class="row  classWithPadSide">
+            <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+                <button type="button" class="btn btn-default" (click)="back()">Back</button>
+                <br>
+                <div class="form-group">
+                    <label for="power">Select Note</label>
+                    <select class="form-control" id="noteType" [(ngModel)]="model.noteType" name="noteType" #noteType="ngModel" required>
+          <option *ngFor="let item of allOptionForNewNote" [value]="item.id">{{item.type}}</option>
         </select>
-                        <div [hidden]="noteType.valid || noteType.pristine" class="alert alert-danger">
-                            Note is required
-                        </div>
+                    <div [hidden]="noteType.valid || noteType.pristine" class="alert alert-danger">
+                        Note is required
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="alterEgo">Date</label>
-                        <input type="date" class="form-control" id="date" name='date' #date="ngModel" [(ngModel)]="model.date" required/>
-                        <div [hidden]="date.valid || date.pristine" class="alert alert-danger">
-                            Date is required
-                        </div>
+                <div class="form-group" style="height: 50%">
+                    <label for="note">Note</label>
 
-                    </div>
+                    <div [froalaEditor] id="note" name="note" #note="ngModel" [(ngModel)]="model.note"></div>
 
-                    <div class="form-group" style="height: 50%">
-                        <label for="note">Note</label>
-
-                        <div [froalaEditor] id="note" name="note" #note="ngModel" [(ngModel)]="model.note"></div>
-
-                    </div>
+                </div>
 
 
-                    <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">{{sendType}}</button>
-                    <button type="reset" class="btn btn-default">Reset</button>
+                <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">{{sendType}}</button>
+                <button type="reset" class="btn btn-default">Reset</button>
 
-                </form>
-            </div>
+            </form>
         </div>
+
     </div>
-    <br>
-    <br>
     <div class="container-fluid" *ngIf="hideDetal">
 
         <div class="row">

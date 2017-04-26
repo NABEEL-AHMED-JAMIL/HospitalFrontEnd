@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlertService, AuthenticationService,NoteService  } from '../_services/index';
+import {SharedService, AlertService, AuthenticationService,NoteService  } from '../_services/index';
 import { AppComponent } from "../app.component";
 import { Docter } from "../_models/index";
 
@@ -19,8 +19,8 @@ export class LoginComponent implements OnInit {
     loading = false;
     returnUrl: string;
     
-
     constructor(
+        private _sharedService: SharedService,
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         this.authenticationService.login(this.model)
             .subscribe(
                 data => {
-                    console.log(data);
+                    this._sharedService.emitChange('Data from child');
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {

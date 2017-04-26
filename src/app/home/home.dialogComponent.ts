@@ -17,7 +17,7 @@ export interface ConfirmModel {
                    </div>
                    <div class="modal-body">
                      <button type="button" class="btn btn-primary" (click)="viewNotes()">View Note's</button>
-                     <button type="button" class="btn btn-success" (click)="edit()">Edit</button>
+                     <!--<button type="button" class="btn btn-success" (click)="edit()">Edit</button>-->
                      <button type="button" class="btn btn-danger" (click)="delete()">Delete</button>
                      <button type="button" class="btn btn-default" (click)="cancel()">Cancel</button>
                    </div>

@@ -5,14 +5,17 @@
 <div class="container-fluid">
     <div class="panel panel-primary">
         <div class="panel-heading ">
-            <div class="row">
-                <div class="column col-md-9">{{loggedInDoc}}</div>
-                <div class="column col-md-2 text-right">Welcome Dr. Jan </div>
-                <div class="column col-md-1"><a [routerLink]="[ '/login'] " class="text-white">Logout</a></div>
+            <div class="row" (onVoted)="onVoted($event)">
+                <div class="column col-md-9">
+                    <h4>{{patient}}</h4>
+                </div>
+                <div class="column col-md-3 text-right">Welcome {{userName}} &nbsp; <a [routerLink]="[ '/login']" class="color-anchor" (click)="clicked($event)">Logout</a> </div>
+
             </div>
         </div>
-
+        <br>
         <router-outlet></router-outlet>
+
 
     </div>
 </div>

@@ -20,8 +20,14 @@ export class NoteService {
     // delete
     deleteNote(id:Number){
         //
+        
         return this.http.delete(this.notesUrl+'/note/delete/'+id).map((response: Response) => response.json());
 
+    }
+
+    updateNote(id:Number , note:Note){
+       
+         return this.http.put(this.notesUrl+'/note/'+id , note).map((response:Response) => response.json());
     }
 
   

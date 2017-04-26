@@ -1,7 +1,7 @@
 import { Component , OnInit } from '@angular/core';
 import { DocterService } from '../_services/index';
 import {DocterTypeService , NoteService , AlertService} from '../_services/index';
-import {PatientService} from '../_services/index'; 
+import {PatientService, SharedService} from '../_services/index'; 
 import { Router, ActivatedRoute } from '@angular/router';
 import {Note , Docter , DocterType} from '../_models/index';
 import { DialogService } from "ng2-bootstrap-modal";
@@ -52,13 +52,12 @@ export class AddNote implements OnInit{
     // help full for search aginst the type
     private showCurrentNotes:Array<any>;
     // getting the all docter type
-    private allSearchType:Array<any>;
+    private allSearchType:Array<DocterType>;
     // this is show on the top
-    private allOptionForNewNote:Array<any>;
+    private allOptionForNewNote:Array<DocterType>;
     //
     private newNote = false;
     private hideDetal = true;
-    private update = false;
     //
     // div show hide method
     Show(){
@@ -76,7 +75,7 @@ export class AddNote implements OnInit{
     }
 
     // constructor for used the service
-    constructor(private alertService:AlertService,private dialogService:DialogService,
+    constructor(private _sharedService: SharedService ,private alertService:AlertService,private dialogService:DialogService,
     private noteService:NoteService, private docterService: DocterService , 
     private docterTypeService:DocterTypeService , private patientService: PatientService , 
     public route: ActivatedRoute,
@@ -92,6 +91,7 @@ export class AddNote implements OnInit{
         this.loadAllDocterType();
         // load the current patient click)
         this.getCurrentSelectPatientNote();
+        
 
    }
 
@@ -99,22 +99,12 @@ export class AddNote implements OnInit{
        // fetching all docter type
        this.docterTypeService.getAllDoctorType().subscribe(allDoctorType => { 
           // assgin to the list of filter the type
-          this.allSearchType = allDoctorType;
-          
+          this.allSearchType = allDoctorType;          
           // remove the first one
            this.allOptionForNewNote = this.allSearchType.filter((item:any) => {
                    return  !"ALL".match(item.type) ;
           });
-          // 
-        this.allSearchType.forEach(element => {
-              if(element.type == "ALL"){
-                 element.active = true;
-              }else{
-                 element.active = false;
-                
-              }
-        });
-      
+          console.log(this.allOptionForNewNote)
       });
   
     }
@@ -136,13 +126,15 @@ export class AddNote implements OnInit{
                       this.patientService.getPatient(this.mrNo).subscribe(patientObject =>{
                           this.patientMrNo = patientObject.mrNo;
                           this.patientName = patientObject.name;
+                          this._sharedService.emitChange("Mr # ("+this.patientMrNo+") Patient Name("+this.patientName+")");
                       });
                 }else{
                     // if the "Patient" have the object than show the list of "Note's" on the table
                     // used for same as uper condition used for show the "name and mrno""
-                    console.log(patientObject);
+                    
                     this.patientMrNo = patientObject[0].patientMrNo;
                     this.patientName = patientObject[0].patientName;
+                    this._sharedService.emitChange("Mr # ("+this.patientMrNo+") Patient Name("+this.patientName+")");
                     // used for show the "Patient" list of "Note's"
                     this.patientNote = patientObject;  
                     // configure the table
@@ -271,35 +263,46 @@ export class AddNote implements OnInit{
     onSubmit() { 
 
        if(this.sendType == "Submit"){
-         if(this.model.note == null){
+          if(this.model.note == null){
            this.model.note = "NULL";
-        }
-        this.docterTypeService.getCurrentTypeSelectByDocter(this.model.noteType).subscribe( data =>{
-          this.currentSelectDocterType = data;
-          this.noteService
-        .addNewNote( this.patientMrNo, new  Note(null,this.model.note,this.model.date,this.currentDocter,this.currentSelectDocterType))
-         .subscribe(
-                data => {
-                    console.log(data);
-                     this.model = {};
-                      this.newNote = false;
-                      this.hideDetal = true;                  
-                },
-                error => {
-
-                });
-              });
-              location.reload();
+          }
+         console.log("Sumbit is press"); 
+        this.noteService.addNewNote(this.patientMrNo , new Note(null , this.model.note, this.getTodayDate(), this.currentDocter,
+         this.allOptionForNewNote.find(item => item.id == this.model.noteType))).subscribe(data => {
+                this.getCurrentSelectPatientNote();
+               this.newNote = false;
+               this.hideDetal = true;
+               this.model = null;
+         });
+      
        }else if(this.sendType == "Edit"){
-         console.log("Pakistan zindabaaa");
+         
+        this.noteService.updateNote(this.updateNoteId , 
+                 new  Note(null,this.model.note,this.getTodayDate(),null,
+                 this.allOptionForNewNote.find(item => item.id == this.model.noteType)))
+                 .subscribe(data =>{
+                      this.getCurrentSelectPatientNote();
+                      this.newNote = false;
+                      this.hideDetal = true;
+                      this.model = null;
+                 });
+
+   
+            
+            // find the index of the current showing the table and serach and reaplace it
+
+      
        }
         
         
         
      }
+  updateNoteId:Number;
+  tempDocter:DocterType;
+
   // this is event on the cell Click
   public onCellClick(data: any): any {
-    console.log(data.row.noteId); 
+    
     //
     this.dialogService.addDialog(NoteDialogComponent, {
       title:'Patient Notes Operation',
@@ -308,24 +311,49 @@ export class AddNote implements OnInit{
         //Get dialog result
          
          if (isConfirmed == "edit"){
-           console.log(data.row.noteType);
-            // remove the first one
             this.sendType = "Edit";
-            this.model = {noteType: data.row.noteType , date : data.row.noteDate , note : data.row.description};
-            console.log(this.model);
             this.newNote = true;
             this.hideDetal = false;
+            // set the model for update
+            // first filter the note and 
+           this.tempDocter = this.allOptionForNewNote.find((item:any) =>{
+                 return  data.row.noteType.match(item.type)
+             });
+           // get the id of the note
+           this.updateNoteId = data.row.noteId;
+           //
+           this.model = {noteType: this.tempDocter.id , note : data.row.description};
 
         }else if(isConfirmed == "delete"){
+ 
+            this.noteService.deleteNote(data.row.noteId).subscribe(deletedata =>{},error => {});
           
-          this.noteService.deleteNote(data.row.noteId)
-          .subscribe(deletedata =>{},error => {});
-          location.reload();
+           // configuer again
+           let index: number = this.showCurrentNotes.indexOf(data.row);
+           
+            if (index !== -1) {
+                this.showCurrentNotes.splice(index, 1);
+            } 
+
+           this.onChangeTable(this.config);
+          
         }else if(isConfirmed == "cancel"){
-          console.log(isConfirmed);
+    
         }
         
     });
+  }
+
+
+  //
+  getTodayDate(){
+    var dateObj = new Date();
+    console.log(dateObj);
+    var month = dateObj.getUTCMonth() + 1; //months from 1-12
+    var day = dateObj.getUTCDate();
+    var year = dateObj.getUTCFullYear();
+    var newdate = year + "-" + month + "-" + day;
+    return new Date();
   }
   
 

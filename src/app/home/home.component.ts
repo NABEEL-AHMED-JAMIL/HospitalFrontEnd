@@ -1,7 +1,7 @@
 import { Component, OnInit , Input } from '@angular/core';
 
 import { Docter } from '../_models/index';
-import { DocterService } from '../_services/index';
+import { DocterService,SharedService } from '../_services/index';
 
 import {PatientService} from '../_services/index';
 import { Router } from '@angular/router';
@@ -39,16 +39,22 @@ export class HomeComponent  implements OnInit {
     
     // first get the hero list and put into the obserable method
     private currentDocter: Docter;
-    constructor(private dialogService:DialogService, private docterService: DocterService ,
+    
+    constructor(private _sharedService: SharedService ,private dialogService:DialogService, private docterService: DocterService ,
      private patientService : PatientService ,private router: Router) {
         this.currentDocter = JSON.parse(localStorage.getItem('currentUser'));
+
+
+
         
     }
 
    
    // this is onit method
    public ngOnInit():void {
+      
        this.loadAllPatient();
+       this._sharedService.emitChange("Data from child");
        
   }
 
@@ -87,7 +93,9 @@ export class HomeComponent  implements OnInit {
   public changeFilter(data:any, config:any):any {
     let filteredData:Array<any> = data;
     this.columns.forEach((column:any) => {
+      
       if (column.filtering) {
+      
         filteredData = filteredData.filter((item:any) => {
           return item[column.name].match(column.filtering.filterString);
         });
@@ -99,17 +107,30 @@ export class HomeComponent  implements OnInit {
     }
 
     if (config.filtering.columnName) {
-      return filteredData.filter((item:any) =>
-        item[config.filtering.columnName].match(this.config.filtering.filterString));
+      
+      return filteredData.filter((item:any) =>{
+       
+        item[config.filtering.columnName].match(this.config.filtering.filterString)});
     }
 
     let tempArray:Array<any> = [];
     filteredData.forEach((item:any) => {
       let flag = false;
       this.columns.forEach((column:any) => {
-        if (item[column.name].toString().match(this.config.filtering.filterString)) {
-          flag = true;
-        }
+
+        
+            if (item[column.name].toString().match(this.config.filtering.filterString)) {
+                    
+                      flag = true;
+            }
+
+            if(column.name == "name"){
+                  if (item[column.name].toLowerCase().toString().match(this.config.filtering.filterString)) {
+                            
+                            flag = true;
+                    }
+                }
+       
       });
       if (flag) {
         tempArray.push(item);
@@ -119,6 +140,7 @@ export class HomeComponent  implements OnInit {
 
     return filteredData;
   }
+  temp:any;
 
     // this is the sort the change the data table
   public changeSort(data:any, config:any):any {
