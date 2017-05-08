@@ -17,6 +17,11 @@ import { DialogService } from "ng2-bootstrap-modal";
 
 export class HomeComponent  implements OnInit {
     // table configuration 
+   public page:number = 1;
+   public itemsPerPage:number = 10;
+   public maxSize:number = 5;
+   public numPages:number = 1;
+   public length:number = 0;
   
    
     public rows:Array<any> = [];
@@ -30,12 +35,11 @@ export class HomeComponent  implements OnInit {
     public data:Array<any>;
   
     public config:any = {
+      paging: true,
       sorting: {columns: this.columns},
       filtering: {filterString: ''},
       className: ['table-striped', , 'table-bordered' ]
     };
-
-    public length:number = 0;
     
     // first get the hero list and put into the obserable method
     private currentDocter: Docter;
@@ -43,10 +47,6 @@ export class HomeComponent  implements OnInit {
     constructor(private _sharedService: SharedService ,private dialogService:DialogService, private docterService: DocterService ,
      private patientService : PatientService ,private router: Router) {
         this.currentDocter = JSON.parse(localStorage.getItem('currentUser'));
-
-
-
-        
     }
 
    
@@ -55,10 +55,8 @@ export class HomeComponent  implements OnInit {
       
        this.loadAllPatient();
        this._sharedService.emitChange("Data from child");
-       
   }
 
-  
   private loadAllPatient() { 
         this.patientService.getAllPatient().subscribe(patients => {
           this.data = patients;
@@ -73,9 +71,15 @@ export class HomeComponent  implements OnInit {
         });
   }
 
+  public changePage(page:any, data:Array<any> = this.data):Array<any> {
+    let start = (page.page - 1) * page.itemsPerPage;
+    let end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : data.length;
+    return data.slice(start, end);
+  }
+
 
   // this is the whole structrure of the table that change by(sorting , filtering)
-  public onChangeTable(config:any):any {
+  public onChangeTable(config:any, page:any = {page: this.page, itemsPerPage: this.itemsPerPage}):any {
     if (config.filtering) {
       Object.assign(this.config.filtering, config.filtering);
     }
@@ -86,7 +90,8 @@ export class HomeComponent  implements OnInit {
 
     let filteredData = this.changeFilter(this.data, this.config);
     let sortedData = this.changeSort(filteredData, this.config);
-    this.rows = sortedData;
+    this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
+    this.length = sortedData.length;
   }
 
 // this is the filter that filter the data in the table
@@ -194,7 +199,15 @@ export class HomeComponent  implements OnInit {
         }else if(isConfirmed == "delete"){
           
           this.patientService.deletePatient(data.row.mrNo).subscribe(data => {});
-          location.reload();
+//          location.reload();
+           // configuer again
+           let index: number = this.data.indexOf(data.row);
+           
+            if (index !== -1) {
+                this.data.splice(index, 1);
+            } 
+
+           this.onChangeTable(this.config);
 
         }else if(isConfirmed == "cancel"){
           

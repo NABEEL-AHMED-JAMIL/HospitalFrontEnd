@@ -16,6 +16,14 @@ import { NoteDialogComponent } from './index';
 })
 export class AddNote implements OnInit{
 
+   public page:number = 1;
+   public itemsPerPage:number = 10;
+   public maxSize:number = 5;
+   public numPages:number = 1;
+   public length:number = 0;
+
+ 
+
     // show the name and mr_No of the patient current get from the home page -> Ok
     private patientName: any;
     private patientMrNo: any;
@@ -33,12 +41,12 @@ export class AddNote implements OnInit{
     ];
     // config the table
     public config:any = {
+      paging: true,
       sorting: {columns: this.columns},
       filtering: {filterString: ''},
       className: ['table-striped', , 'table-bordered' ]
     };
-    // set the length of the rows in the tables
-    public length:number = 0;
+    
     //-----------------------------------
     // current docter who is login
     private currentDocter: Docter;
@@ -165,10 +173,14 @@ export class AddNote implements OnInit{
          this.onChangeTable(this.config);
          
      }
- 
 
+    public changePage(page:any, data:Array<any> = this.showCurrentNotes):Array<any> {
+      let start = (page.page - 1) * page.itemsPerPage;
+      let end = page.itemsPerPage > -1 ? (start + page.itemsPerPage) : data.length;
+      return data.slice(start, end);
+    }
     // method's of the table
-    public onChangeTable(config:any):any {
+    public onChangeTable(config:any , page:any = {page: this.page, itemsPerPage: this.itemsPerPage}):any {
       
             if (config.filtering) {
               Object.assign(this.config.filtering, config.filtering);
@@ -180,7 +192,9 @@ export class AddNote implements OnInit{
 
             let filteredData = this.changeFilter(this.showCurrentNotes, this.config);
             let sortedData = this.changeSort(filteredData, this.config);
-            this.rows = sortedData;
+            //this.rows = sortedData;
+            this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
+            this.length = sortedData.length;
           
    }
 

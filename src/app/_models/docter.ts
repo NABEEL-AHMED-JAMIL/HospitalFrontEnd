@@ -7,4 +7,5 @@ export class Docter {
     docterType:any = {};
 
     constructor(){}
+    
 }

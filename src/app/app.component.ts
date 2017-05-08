@@ -32,11 +32,8 @@ export class AppComponent {
                   this.userName = this.currentDocter.userName;
                   this.patient = text;
               }
-             
-            
         });
          
-
   }
 
       clicked(event) {

@@ -8,9 +8,10 @@ export class DocterService {
     constructor(private http: Http) { }
 
     //
-    private DocterUrl = 'http://localhost:8080/docter/login'
+    private DocterUrl = 'http://localhost:8080/docter/register'
     create(docter: Docter) {
-        return this.http.post(this.DocterUrl, docter, this.jwt()).map((response: Response) => response.json());
+        console.log(docter);
+        return this.http.post(this.DocterUrl, docter , this.jwt()).map((response: Response) => response.json());
     }
 
 

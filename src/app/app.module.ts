@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {DataTableModule,SharedModule} from 'primeng/primeng';
+import { PaginationModule } from 'ngx-bootstrap';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 //-------------routing--------------------------------------
@@ -45,7 +45,8 @@ import {SharedService, AlertService, AuthenticationService,DocterService , NoteS
     HttpModule,
     BootstrapModalModule,
      routing,
-     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
+     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
+     PaginationModule.forRoot()
      
      
      

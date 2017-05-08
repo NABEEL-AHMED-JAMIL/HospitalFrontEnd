@@ -37,11 +37,13 @@ export class RegisterComponent implements OnInit{
         this.userService.create(this.model)
             .subscribe(
                 data => {
+                    console.log(data);
                     this.alertService.success('Registration successful', true);
                     this.router.navigate(['/login']);
                 },
                 error => {
-                    this.alertService.error(error);
+                    
+                    this.alertService.error("User Name Already Taken");
                     this.loading = false;
                 });
     }
