@@ -1,3 +1,5 @@
+import { DocterType , Docter } from './index';
+
 export class Note {
     
     constructor(
@@ -5,8 +7,8 @@ export class Note {
     public id : Number,
     public description:String,
     public noteDate: Date ,
-    public docter: any = {},
-    public docterType:any = {}
+    public docter: Docter,
+    public docterType:DocterType
  
    ){}   
 
