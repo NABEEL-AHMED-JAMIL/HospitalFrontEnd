@@ -1,4 +1,14 @@
 <!--body-->
+<!--
+    title:'Patient Notes Operation',
+    title:'Patient Operation',
+    if(title == Patient Notes Operation) {
+
+    }else if(title == Patient Operation){
+
+    }
+
+-->
 <div class="panel-body">
     <div class="row" *ngIf="newNote">
         <div class="row  classWithPadSide">
@@ -8,8 +18,8 @@
                 <div class="form-group">
                     <label for="power">Select Note</label>
                     <select class="form-control" id="noteType" [(ngModel)]="model.noteType" name="noteType" #noteType="ngModel" required>
-          <option *ngFor="let item of allOptionForNewNote" [value]="item.id">{{item.type}}</option>
-        </select>
+                        <option *ngFor="let item of allOptionForNewNote" [value]="item.id">{{item.type}}</option>
+                    </select>
                     <div [hidden]="noteType.valid || noteType.pristine" class="alert alert-danger">
                         Note is required
                     </div>
@@ -17,18 +27,13 @@
 
                 <div class="form-group" style="height: 50%">
                     <label for="note">Note</label>
-
                     <div [froalaEditor] id="note" name="note" #note="ngModel" [(ngModel)]="model.note"></div>
-
                 </div>
-
 
                 <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">{{sendType}}</button>
                 <button type="reset" class="btn btn-default">Reset</button>
-
             </form>
         </div>
-
     </div>
     <div class="container-fluid" *ngIf="hideDetal">
 
@@ -53,7 +58,6 @@
     </div>
     <br>
 
-
     <div class="row" *ngIf="hideDetal">
         <div class="col-md-12 ">
             <div class="row table-condensed classWithPadSide">
@@ -65,7 +69,5 @@
             </pagination>
         </div>
     </div>
-
-
 
 </div>

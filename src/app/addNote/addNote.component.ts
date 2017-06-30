@@ -1,54 +1,42 @@
 import { Component , OnInit } from '@angular/core';
 import { DocterService } from '../_services/index';
-import {DocterTypeService , NoteService , AlertService} from '../_services/index';
+import {DocterTypeService , NoteService , AlertService, UtilService} from '../_services/index';
 import {PatientService, SharedService} from '../_services/index'; 
 import { Router, ActivatedRoute } from '@angular/router';
 import {Note , Docter , DocterType} from '../_models/index';
 import { DialogService } from "ng2-bootstrap-modal";
-import { NoteDialogComponent } from './index';
+import { CDialogComponent } from '../_dialog_box/index';
 
 @Component({
-    moduleId:module.id,
     selector: 'add_note',  
     templateUrl:'addNote.component.html',
     styleUrls: ['addNote.component.css']
     
 })
 export class AddNote implements OnInit{
-
-   public page:number = 1;
-   public itemsPerPage:number = 10;
-   public maxSize:number = 5;
-   public numPages:number = 1;
-   public length:number = 0;
-
- 
-
-    // show the name and mr_No of the patient current get from the home page -> Ok
+    // table configuration
+    public page:number = 1;
+    public itemsPerPage:number = 10;
+    public maxSize:number = 5;
+    public numPages:number = 1;
+    public length:number = 0;
+    public rows:Array<any> = [];
+    public columns:Array<any> = [
+        {title: 'Date' , name: 'noteDate'},
+        {title:'Docter' , name:'docterName'},
+        {title:'Type' , name:'noteType'},
+        {title:'Note' , name:'description'}
+    ];
     private patientName: any;
     private patientMrNo: any;
-    // table configuration  -> ok
-    // this is for each row in the table
-    public rows:Array<any> = [];
-    // this repersent the each colums in the one row
-    public columns:Array<any> = [
-
-      {title: 'Date' , name: 'noteDate'}, 
-      {title:'Docter' , name:'docterName'},
-      {title:'Type' , name:'noteType'},
-      {title:'Note' , name:'description'}
-    
-    ];
     // config the table
     public config:any = {
-      paging: true,
-      sorting: {columns: this.columns},
-      filtering: {filterString: ''},
-      className: ['table-striped', , 'table-bordered' ]
+        paging: true,
+        sorting: {columns: this.columns},
+        filtering: {filterString: ''},
+        className: ['table-striped', , 'table-bordered' ]
     };
     
-    //-----------------------------------
-    // current docter who is login
     private currentDocter: Docter;
     // current docter type
     private currentSelectDocterType: DocterType;
@@ -60,7 +48,7 @@ export class AddNote implements OnInit{
     // help full for search aginst the type
     private showCurrentNotes:Array<any>;
     // getting the all docter type
-    private allSearchType:Array<DocterType>;
+    private allSearchType: Array<DocterType>;
     // this is show on the top
     private allOptionForNewNote:Array<DocterType>;
     //
@@ -83,7 +71,7 @@ export class AddNote implements OnInit{
     }
 
     // constructor for used the service
-    constructor(private _sharedService: SharedService ,private alertService:AlertService,private dialogService:DialogService,
+    constructor(private utilService:UtilService,private _sharedService: SharedService ,private alertService:AlertService,private dialogService:DialogService,
     private noteService:NoteService, private docterService: DocterService , 
     private docterTypeService:DocterTypeService , private patientService: PatientService , 
     public route: ActivatedRoute,
@@ -103,7 +91,7 @@ export class AddNote implements OnInit{
 
    }
 
-    loadAllDocterType():any{
+    private loadAllDocterType():any{
        // fetching all docter type
        this.docterTypeService.getAllDoctorType().subscribe(allDoctorType => { 
           // assgin to the list of filter the type
@@ -118,7 +106,7 @@ export class AddNote implements OnInit{
     }
 
     // record of patient in form on note
-    getCurrentSelectPatientNote():any{
+    private getCurrentSelectPatientNote():any{
 
           //  get URL parameters
           this.route.params.subscribe(params => {this.mrNo = params['mrNo'];});
@@ -281,7 +269,7 @@ export class AddNote implements OnInit{
            this.model.note = "NULL";
           }
          console.log("Sumbit is press"); 
-        this.noteService.addNewNote(this.patientMrNo , new Note(null , this.model.note, this.getTodayDate(), this.currentDocter,
+        this.noteService.addNewNote(this.patientMrNo , new Note(null , this.model.note, this.utilService.getTodayDate(), this.currentDocter,
          this.allOptionForNewNote.find(item => item.id == this.model.noteType))).subscribe(data => {
                 this.getCurrentSelectPatientNote();
                this.newNote = false;
@@ -292,23 +280,15 @@ export class AddNote implements OnInit{
        }else if(this.sendType == "Edit"){
          
         this.noteService.updateNote(this.updateNoteId , 
-                 new  Note(null,this.model.note,this.getTodayDate(),null,
+                 new  Note(null,this.model.note,this.utilService.getTodayDate(),null,
                  this.allOptionForNewNote.find(item => item.id == this.model.noteType)))
                  .subscribe(data =>{
                       this.getCurrentSelectPatientNote();
                       this.newNote = false;
                       this.hideDetal = true;
                       this.model = null;
-                 });
-
-   
-            
-            // find the index of the current showing the table and serach and reaplace it
-
-      
-       }
-        
-        
+                 });      
+              }
         
      }
   updateNoteId:Number;
@@ -318,7 +298,7 @@ export class AddNote implements OnInit{
   public onCellClick(data: any): any {
     
     //
-    this.dialogService.addDialog(NoteDialogComponent, {
+    this.dialogService.addDialog(CDialogComponent, {
       title:'Patient Notes Operation',
       message:"Pakistan zinda.........."})
       .subscribe((isConfirmed :any)=>{
@@ -357,18 +337,5 @@ export class AddNote implements OnInit{
         
     });
   }
-
-
-  //
-  getTodayDate(){
-    var dateObj = new Date();
-    console.log(dateObj);
-    var month = dateObj.getUTCMonth() + 1; //months from 1-12
-    var day = dateObj.getUTCDate();
-    var year = dateObj.getUTCFullYear();
-    var newdate = year + "-" + month + "-" + day;
-    return new Date();
-  }
-  
 
 }

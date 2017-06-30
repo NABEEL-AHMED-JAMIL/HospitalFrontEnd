@@ -1,13 +1,13 @@
 import { DocterType } from './index';
 
 export class Docter {
-    id: Number;
-    userName: String;
-    password: String;
-    firstName: String;
-    lastName: String;
-    docterType:DocterType;
-
-    constructor(){}
+   public id: Number;
+   public userName: String;
+   public password: String;
+   public firstName: String;
+   public lastName: String;
+   public docterType:DocterType;
+   
+   constructor(){}
     
 }

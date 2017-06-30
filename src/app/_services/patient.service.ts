@@ -5,33 +5,37 @@ import { Note } from '../_models/index';
 
 @Injectable()
 export class PatientService {
+
+    private notesUrl = 'http://localhost:8080/';
+
     constructor(private http: Http) { }
-
-    //
-    // get the all notes  
-   private notesUrl = 'http://localhost:8080/';
-
-
-   getAllPatient() {
-        return this.http.get(this.notesUrl+'patient/getAllPatient').map((response: Response) => response.json());
-    }
-
-    getAllPatientNote(mrNo:Number){
-        return this.http.get(this.notesUrl+'patient/notes/'+mrNo).map((response: Response) => response.json());
-    }
-
-    getPatient(mrNo:Number){
-        return this.http.get(this.notesUrl+'patient/'+mrNo).map((response: Response) => response.json());
-    }
-
-    deletePatient(mrNo:Number){
-        return this.http.delete(this.notesUrl+'patient/'+mrNo).map((response: Response) => response.json());
-    }
-
     
+    public getAllPatient(): any {
+        return this.http.get(this.notesUrl+'patient/getAllPatient')
+            .map((response: Response) => {
+                response.json()
+            });
+    }
 
+    public getAllPatientNote(mrNo:Number): any {
+        return this.http.get(this.notesUrl+'patient/notes/'+mrNo)
+            .map((response: Response) => {
+                response.json()
+            });
+    }
 
+    public getPatient(mrNo:Number): any {
+        return this.http.get(this.notesUrl+'patient/'+mrNo)
+            .map((response: Response) => {
+                response.json()
+            });
+    }
 
-
+    public deletePatient(mrNo:Number): any {
+        return this.http.delete(this.notesUrl+'patient/'+mrNo)
+            .map((response: Response) => {
+                response.json()
+            });
+    }
     
 }

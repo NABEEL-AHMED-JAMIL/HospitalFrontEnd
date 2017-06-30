@@ -9,18 +9,31 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
 //-------------routing--------------------------------------
 import { routing }        from './app.routing';
 //------------import from the outsorce--------------------
-import { NgTableComponent, NgTableFilteringDirective, NgTablePagingDirective, NgTableSortingDirective } from 'ng2-table/ng2-table';
+import { 
+  NgTableComponent,
+  NgTableFilteringDirective,
+  NgTablePagingDirective,
+  NgTableSortingDirective 
+} from 'ng2-table/ng2-table';
 //------------Component------------------------------------
 import { AlertComponent } from './_directives/index';
 import { AppComponent } from './app.component';
-import { HomeComponent , HomeDialogComponent } from './home/index';
+import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import {RegisterComponent} from './register/index';
-import {AddNote , NoteDialogComponent} from './addNote/index';
-
+import {AddNote} from './addNote/index';
+import { CDialogComponent } from './_dialog_box/index';
 //----------------Service------------------------------
 import { AuthGuard } from './_guards/index';
-import {SharedService, AlertService, AuthenticationService,DocterService , NoteService , PatientService , DocterTypeService} from './_services/index';
+import {
+  SharedService, 
+  AlertService, 
+  AuthenticationService,
+  DocterService,
+  NoteService,
+  PatientService,
+  DocterTypeService
+} from './_services/index';
 
 
 @NgModule({
@@ -28,11 +41,11 @@ import {SharedService, AlertService, AuthenticationService,DocterService , NoteS
     AppComponent,
     AlertComponent,
     HomeComponent,
-    HomeDialogComponent,
     LoginComponent,
     RegisterComponent,
-    NoteDialogComponent,
     AddNote,
+    CDialogComponent,
+    // Directive same like component....
     NgTableComponent, 
     NgTableFilteringDirective,
     NgTablePagingDirective, 
@@ -44,11 +57,10 @@ import {SharedService, AlertService, AuthenticationService,DocterService , NoteS
     FormsModule,
     HttpModule,
     BootstrapModalModule,
-     routing,
-     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
-     PaginationModule.forRoot()
-     
-     
+    routing,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot(),
+    PaginationModule.forRoot()    
      
   ],
   providers: [
@@ -63,10 +75,10 @@ import {SharedService, AlertService, AuthenticationService,DocterService , NoteS
 
   ],
   entryComponents: [
-   
-    HomeDialogComponent,NoteDialogComponent
-  ]
-  ,
+    CDialogComponent
+    
+  ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

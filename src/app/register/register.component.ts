@@ -1,7 +1,7 @@
 import { Component , OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertService,DocterTypeService,DocterService} from '../_services/index';
 
-import { AlertService, DocterTypeService ,DocterService} from '../_services/index';
 
 @Component({
     moduleId: module.id,
@@ -10,10 +10,14 @@ import { AlertService, DocterTypeService ,DocterService} from '../_services/inde
     styleUrls: ['register.component.css']
 })
 
+
 export class RegisterComponent implements OnInit{
+    
     model: any = {};
     loading = false;
     private allDoctorType :Array<any>;
+    
+    
     constructor(
         private router: Router,
         private docterTypeService: DocterTypeService,
@@ -23,28 +27,27 @@ export class RegisterComponent implements OnInit{
     public ngOnInit():void {
         this.loadAllDoctorType();
     }
-
-     private loadAllDoctorType() { 
-
-        this.docterTypeService.getAllDoctorType().subscribe(allDoctorType => { this.allDoctorType = allDoctorType;
-            console.log(this.allDoctorType);   
-
+    
+    private loadAllDoctorType() { 
+        this.docterTypeService.getAllDoctorType()
+            .subscribe(allDoctorType => { 
+                this.allDoctorType = allDoctorType;
+                console.log(this.allDoctorType);   
         });
     }
 
-    register() {
+    public register() {
         this.loading = true;
         this.userService.create(this.model)
-            .subscribe(
-                data => {
-                    console.log(data);
-                    this.alertService.success('Registration successful', true);
-                    this.router.navigate(['/login']);
-                },
-                error => {
-                    
-                    this.alertService.error("User Name Already Taken");
-                    this.loading = false;
-                });
+            .subscribe( data => {
+                console.log(data);
+                this.alertService.success('Registration successful', true);
+                this.router.navigate(['/login']);
+            },
+            error => {        
+                this.alertService.error("User Name Already Taken");
+                this.loading = false;
+            });
     }
+
 }

@@ -6,12 +6,12 @@ import { Docter } from "../_models/index";
 
 
 @Component({
-    moduleId: module.id,
     selector: 'login',
     templateUrl: 'login.component.html',
     styleUrls: ['login.component.css']
       
 })
+
 
 export class LoginComponent implements OnInit {
 
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
         private alertService: AlertService,
         private appComponent: AppComponent
        ) { }
-
+       
     ngOnInit() {
         // reset login status
         this.authenticationService.logout();
@@ -36,21 +36,18 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
-    login() {
+    public login() {
+
         this.loading = true;
-        
         this.authenticationService.login(this.model)
-            .subscribe(
-                data => {
-                    this._sharedService.emitChange('Data from child');
-                    this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    this.alertService.error("Wrong Password And User Name");
-                    this.loading = false;
-                });
+            .subscribe( data => {
+                this._sharedService.emitChange('Data from child');
+                this.router.navigate([this.returnUrl]);
+            },
+            error => {
+                this.alertService.error("Wrong Password And User Name");
+                this.loading = false;
+            });
     }
-
     
-
 }
