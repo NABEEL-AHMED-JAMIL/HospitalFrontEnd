@@ -1,6 +1,11 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+//----------------Service------------------------------
+//-------------Routing---------------------------------
+//-------------Model-----------------------------------
+//-------------Module----------------------------------
+//------------Component--------------------------------
 
 
 @Injectable()

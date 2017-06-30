@@ -1,4 +1,10 @@
 import { Injectable } from '@angular/core';
+//----------------Service------------------------------
+//-------------Routing---------------------------------
+//-------------Model-----------------------------------
+//-------------Module----------------------------------
+//------------Component--------------------------------
+
 
 @Injectable()
 export class UtilService {
@@ -21,7 +27,7 @@ export class UtilService {
         } 
     }
     
-    public getTodayDate(){
+    public getTodayDate() {
         var dateObj = new Date();
         console.log(dateObj);
         var month = dateObj.getUTCMonth() + 1; //months from 1-12

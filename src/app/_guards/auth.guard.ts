@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { 
-    Router,
-    CanActivate,
-    ActivatedRouteSnapshot,
-    RouterStateSnapshot 
-} from '@angular/router';
+//----------------Service------------------------------
 import {SharedService } from '../_services/index';
+//-------------Routing---------------------------------
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+//-------------Model----------------------------------
+//-------------Module----------------------------------
+//------------Component--------------------------------
 
 
 @Injectable()
@@ -18,10 +18,9 @@ export class AuthGuard implements CanActivate {
             // logged in so return true
             return true;
         }
- 
+        // , { queryParams: { returnUrl: state.url }}
         // not logged in so redirect to login page with the return url
-        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
-        console.log("this is call");
+        this.router.navigate(['/login']);
         this._sharedService.emitChange('End call');
         return false;
     }

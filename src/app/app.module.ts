@@ -1,4 +1,4 @@
-//-------------module---------------------------------------
+//-------------Module---------------------------------------
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { PaginationModule } from 'ngx-bootstrap';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
-//-------------routing--------------------------------------
+//-------------Routing--------------------------------------
 import { routing }        from './app.routing';
 //------------import from the outsorce--------------------
 import { 
@@ -22,7 +22,7 @@ import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import {RegisterComponent} from './register/index';
 import {AddNote} from './addNote/index';
-import { CDialogComponent } from './_dialog_box/index';
+// import { CDialogComponent } from './_dialog_box/index';
 //----------------Service------------------------------
 import { AuthGuard } from './_guards/index';
 import {
@@ -44,7 +44,7 @@ import {
     LoginComponent,
     RegisterComponent,
     AddNote,
-    CDialogComponent,
+    // CDialogComponent,
     // Directive same like component....
     NgTableComponent, 
     NgTableFilteringDirective,
@@ -75,7 +75,7 @@ import {
 
   ],
   entryComponents: [
-    CDialogComponent
+    // CDialogComponent
     
   ],
   bootstrap: [AppComponent]

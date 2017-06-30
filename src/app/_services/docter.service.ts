@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+//----------------Service------------------------------
+//-------------Routing---------------------------------
+//-------------Model-----------------------------------
 import { Docter } from '../_models/index';
+//-------------Module----------------------------------
+//------------Component--------------------------------
+
 
 
 @Injectable()

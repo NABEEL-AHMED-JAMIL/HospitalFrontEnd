@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
-import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
+//----------------Service------------------------------
+import { DialogService } from "ng2-bootstrap-modal";
+//-------------Routing---------------------------------
+//-------------Model----------------------------------
+//-------------Module----------------------------------
+//------------Component--------------------------------
+import { DialogComponent } from "ng2-bootstrap-modal";
 
 
 export interface ConfirmModel {
@@ -7,17 +13,19 @@ export interface ConfirmModel {
    message: String;
 }
 
+
 @Component({
-    selector: 'CD-dialog',  
+    selector: 'cd-dialog',  
     templateUrl:'dialog.component.html',
     styleUrls: []
 })
+
 
 export class CDialogComponent extends DialogComponent<ConfirmModel, String> implements ConfirmModel {
 
   title = 'pakistan....';
   message: String;
-  //
+  
   constructor(dialogService: DialogService) {
       super(dialogService);
   }
