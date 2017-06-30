@@ -7,7 +7,6 @@ import { DialogService } from "ng2-bootstrap-modal";
 //------------Component--------------------------------
 import { DialogComponent } from "ng2-bootstrap-modal";
 
-
 export interface ConfirmModel {
    title: String;
    message: String;
@@ -21,10 +20,7 @@ export interface ConfirmModel {
 })
 
 
-export class CDialogComponent extends DialogComponent<ConfirmModel, String> implements ConfirmModel {
-
-  title = 'pakistan....';
-  message: String;
+export class CDialogComponent extends DialogComponent<ConfirmModel, String> {
   
   constructor(dialogService: DialogService) {
       super(dialogService);

@@ -10,10 +10,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import {Note , Docter , DocterType} from '../_models/index';
 //-------------Module----------------------------------
 //------------Component--------------------------------
-// import { CDialogComponent } from '../_dialog_box/index';
+import { CDialogComponent } from '../_dialog_box/index';
 
 
 @Component({
+    moduleId: module.id,
     selector: 'add_note',  
     templateUrl:'addNote.component.html',
     styleUrls: ['addNote.component.css']
@@ -266,32 +267,32 @@ export class AddNote implements OnInit{
     private tempDocter:DocterType;
     // this is event on the cell Click
     public onCellClick(data: any): any {
-        // this.dialogService.addDialog(CDialogComponent, {
-        //     title:'Patient Notes Operation',
-        //     message:"Pakistan zinda.........."
-        // }).
-        // subscribe((isConfirmed :any)=> {
-        //     if (isConfirmed == "edit") {
-        //         this.sendType = "Edit";
-        //         this.newNote = true;
-        //         this.hideDetal = false;
-        //         // set the model for update
-        //         // first filter the note and 
-        //         this.tempDocter = this.allOptionForNewNote.find((item:any) => {
-        //             return data.row.noteType.match(item.type)
-        //         });
-        //         // get the id of the note
-        //         this.updateNoteId = data.row.noteId;
-        //         this.model = { noteType: this.tempDocter.id , note: data.row.description };
-        //     }else if(isConfirmed == "delete") {
-        //         this.noteService.deleteNote(data.row.noteId).subscribe(deletedata => {}, error => {});
-        //         // configuer again
-        //         let index: number = this.showCurrentNotes.indexOf(data.row);
-        //         if (index !== -1) {
-        //             this.showCurrentNotes.splice(index, 1);
-        //         }
-        //         this.onChangeTable(this.config);
-        //     }else if(isConfirmed == "cancel") {}
-        // });
+        this.dialogService.addDialog(CDialogComponent, {
+            title:'Patient Notes Operation',
+            message:"Pakistan zinda.........."
+        }).
+        subscribe((isConfirmed :any)=> {
+            if (isConfirmed == "edit") {
+                this.sendType = "Edit";
+                this.newNote = true;
+                this.hideDetal = false;
+                // set the model for update
+                // first filter the note and 
+                this.tempDocter = this.allOptionForNewNote.find((item:any) => {
+                    return data.row.noteType.match(item.type)
+                });
+                // get the id of the note
+                this.updateNoteId = data.row.noteId;
+                this.model = { noteType: this.tempDocter.id , note: data.row.description };
+            }else if(isConfirmed == "delete") {
+                this.noteService.deleteNote(data.row.noteId).subscribe(deletedata => {}, error => {});
+                // configuer again
+                let index: number = this.showCurrentNotes.indexOf(data.row);
+                if (index !== -1) {
+                    this.showCurrentNotes.splice(index, 1);
+                }
+                this.onChangeTable(this.config);
+            }else if(isConfirmed == "cancel") {}
+        });
     }
 }

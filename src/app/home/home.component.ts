@@ -8,10 +8,11 @@ import { Router } from '@angular/router';
 import { Docter } from '../_models/index';
 //-------------Module----------------------------------
 //------------Component--------------------------------
-// import { CDialogComponent } from '../_dialog_box/index';
+import { CDialogComponent } from '../_dialog_box/index';
 
 
 @Component({
+    moduleId: module.id,
     selector: 'home',  
     templateUrl: 'home.component.html',
     styleUrls: ['home.component.css']
@@ -158,22 +159,22 @@ export class HomeComponent  implements OnInit {
   
   // this is event on the cell Click
   public onCellClick(data: any): any {   
-    //   this.dialogService.addDialog(CDialogComponent, {
-    //       title:'Patient Operation',
-    //       message:"Pakistan zinda.........."
-    //     }).subscribe((isConfirmed :any)=> {
-    //         if(isConfirmed == "view") {  
-    //             this.router.navigate(['/addnote', data.row.mrNo]);
-    //         }else if (isConfirmed == "edit") {
+      this.dialogService.addDialog(CDialogComponent, {
+          title:'Patient Operation',
+          message:"Pakistan zinda.........."
+        }).subscribe((isConfirmed :any)=> {
+            if(isConfirmed == "view") {  
+                this.router.navigate(['/addnote', data.row.mrNo]);
+            }else if (isConfirmed == "edit") {
 
-    //         }else if(isConfirmed == "delete") {
-    //             this.patientService.deletePatient(data.row.mrNo).subscribe(data => {});
-    //             let index: number = this.patients.indexOf(data.row);
-    //             if (index !== -1) {
-    //                 this.patients.splice(index, 1);
-    //             }
-    //             this.onChangeTable(this.config);
-    //         }else if(isConfirmed == "cancel") {}
-    //     });
+            }else if(isConfirmed == "delete") {
+                this.patientService.deletePatient(data.row.mrNo).subscribe(data => {});
+                let index: number = this.patients.indexOf(data.row);
+                if (index !== -1) {
+                    this.patients.splice(index, 1);
+                }
+                this.onChangeTable(this.config);
+            }else if(isConfirmed == "cancel") {}
+        });
     }
 }
