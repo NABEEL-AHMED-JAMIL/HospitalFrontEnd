@@ -165,9 +165,9 @@ export class AddNote implements OnInit{
         if (config.sorting) {
             Object.assign(this.config.sorting, config.sorting);
         }
+        
         let filteredData = this.changeFilter(this.showCurrentNotes, this.config);
         let sortedData = this.changeSort(filteredData, this.config);
-        //this.rows = sortedData;
         this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
         this.length = sortedData.length;
           
@@ -177,13 +177,12 @@ export class AddNote implements OnInit{
    public changeFilter(data:any, config:any):any {
        let filteredData:Array<any> = data;
        this.columns.forEach((column:any) => {
-       
-       if (column.filtering) {
-           filteredData = filteredData.filter((item:any) => {
-               return item[column.name].match(column.filtering.filterString);
-         });
-       }
-     });
+           if (column.filtering) {
+               filteredData = filteredData.filter((item:any) => {
+                   return item[column.name].match(column.filtering.filterString);
+                });
+            }
+        });
        if (!config.filtering) {
            return filteredData;
         }

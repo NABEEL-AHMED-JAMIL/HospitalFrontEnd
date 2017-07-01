@@ -15,8 +15,9 @@ export interface ConfirmModel {
 
 @Component({
     selector: 'cd-dialog',  
-    templateUrl:'dialog.component.html',
-    styleUrls: []
+    templateUrl:'./dialog.component.html',
+    styleUrls: ['dialog.component.css']
+
 })
 
 

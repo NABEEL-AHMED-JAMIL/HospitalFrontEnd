@@ -22,7 +22,7 @@ import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import {RegisterComponent} from './register/index';
 import {AddNote} from './addNote/index';
-// import { CDialogComponent } from './_dialog_box/index';
+import { CDialogComponent } from './_dialog_box/index';
 //----------------Service------------------------------
 import { AuthGuard } from './_guards/index';
 import {
@@ -44,7 +44,7 @@ import {
     LoginComponent,
     RegisterComponent,
     AddNote,
-    // CDialogComponent,
+    CDialogComponent,
     // Directive same like component....
     NgTableComponent, 
     NgTableFilteringDirective,
@@ -75,7 +75,7 @@ import {
 
   ],
   entryComponents: [
-    // CDialogComponent
+    CDialogComponent
     
   ],
   bootstrap: [AppComponent]
