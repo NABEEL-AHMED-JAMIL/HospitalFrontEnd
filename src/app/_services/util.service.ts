@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 //-------------Module----------------------------------
 //------------Component--------------------------------
 
+// const url = 'https://apis.google.com/js/client.js?onload=__onGoogleLoaded';
 
 @Injectable()
 export class UtilService {

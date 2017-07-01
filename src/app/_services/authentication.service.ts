@@ -10,16 +10,15 @@ import { Docter } from '../_models/index';
 //------------Component--------------------------------
 
 
-
 @Injectable()
 export class AuthenticationService {
     //
-    private UserUrl = 'http://localhost:8080/docter/login';
+    private userUrl = 'http://localhost:8080/docter/login';
 
     constructor(private http: Http) { }
     
     public login(docter: Docter): Observable<any> {
-        return this.http.post(this.UserUrl, docter)
+        return this.http.post(this.userUrl, docter)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let user = response.json();

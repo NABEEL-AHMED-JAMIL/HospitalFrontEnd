@@ -12,13 +12,13 @@ import { Docter } from '../_models/index';
 @Injectable()
 export class DocterService {
     
-    private DocterUrl = 'http://localhost:8080/docter/register';
+    private docterUrl = 'http://localhost:8080/docter/register';
 
     constructor(private http: Http) { }
     
     public create(docter: Docter): any{
         // , this.jwt()
-        return this.http.post(this.DocterUrl, docter )
+        return this.http.post(this.docterUrl, docter )
             .map((response: Response) => {
                 response.json()
             });
