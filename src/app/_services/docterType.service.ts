@@ -18,7 +18,7 @@ export class DocterTypeService {
     constructor(private http: Http) { }
 
    public getAllDoctorType(): any {
-        return this.http.get(this.notesUrl+'docType/getAllType')
+        return this.http.get(this.notesUrl+'docType/getAllType', this.jwt())
             .map((response: Response) => { 
                 response.json()
             });
@@ -37,6 +37,17 @@ export class DocterTypeService {
             .map((response: Response) => { 
                 response.json()
             });
+    }
+
+   private jwt() {
+       // Website you wish to allow to connect
+
+        let headers = new Headers(
+            {'Access-Control-Allow-Origin': 'http://localhost:8888',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+            'Access-Control-Allow-Headers': 'X-Requested-With,content-type',
+            'Access-Control-Allow-Credentials': true});
+        return new RequestOptions({ headers: headers });
     }
 
 

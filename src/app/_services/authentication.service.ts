@@ -13,12 +13,14 @@ import { Docter } from '../_models/index';
 @Injectable()
 export class AuthenticationService {
     //
-    private userUrl = 'http://localhost:8080/docter/login';
+    private userUrl = 'http://localhost:8080/login';
 
     constructor(private http: Http) { }
     
     public login(docter: Docter): Observable<any> {
-        return this.http.post(this.userUrl, docter)
+        // used the 
+        console.log(JSON.stringify(docter))
+        return this.http.post(this.userUrl, JSON.stringify({ username: docter.userName, password: docter.password }))
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let user = response.json();

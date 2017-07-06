@@ -7,12 +7,12 @@ import {AddNote} from './addNote/index';
 
 
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: '', component: HomeComponent},
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     {path: 'addnote', component:AddNote, canActivate: [AuthGuard] },
     { path: 'addnote/:mrNo', component: AddNote, canActivate: [AuthGuard] },
-    {path: 'home', component:HomeComponent},
+    {path: 'home', component:HomeComponent, canActivate: [AuthGuard]},
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

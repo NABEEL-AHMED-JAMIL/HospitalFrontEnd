@@ -18,20 +18,16 @@ export class DocterService {
     
     public create(docter: Docter): any{
         // , this.jwt()
-        return this.http.post(this.docterUrl, docter )
+        return this.http.post(this.docterUrl, docter , this.jwt())
             .map((response: Response) => {
                 response.json()
             });
     }
 
-    // private helper methods
-
-    // private jwt() {
-    //     // create authorization header with jwt token
-    //     let currentDocter = JSON.parse(localStorage.getItem('currentDocter'));
-    //     if (currentDocter && currentDocter.token) {
-    //         let headers = new Headers({ 'Authorization': 'Bearer ' + currentDocter.token });
-    //         return new RequestOptions({ headers: headers });
-    //     }
-    // }
+    
+    private jwt() {
+        let headers = new Headers({ 'Authorization': 'Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==' });
+        return new RequestOptions({ headers: headers });
+    }
+    
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {SharedService, AlertService, AuthenticationService,NoteService  } from '../_services/index';
+import {SharedService, AlertService, AuthenticationService,NoteService, DocterTypeService  } from '../_services/index';
 import { AppComponent } from "../app.component";
 import { Docter } from "../_models/index";
 
@@ -25,13 +25,13 @@ export class LoginComponent implements OnInit {
         private router: Router,
         private authenticationService: AuthenticationService,
         private alertService: AlertService,
-        private appComponent: AppComponent
+        private appComponent: AppComponent,
+        private docter: DocterTypeService
        ) { }
        
     ngOnInit() {
         // reset login status
         this.authenticationService.logout();
-
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
