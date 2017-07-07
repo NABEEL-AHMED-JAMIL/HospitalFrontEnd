@@ -7,7 +7,7 @@ import {AddNote} from './addNote/index';
 
 
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent},
+    { path: '', component: HomeComponent , canActivate: [AuthGuard]},
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     {path: 'addnote', component:AddNote, canActivate: [AuthGuard] },
