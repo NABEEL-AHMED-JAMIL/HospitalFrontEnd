@@ -14,14 +14,16 @@ export class AuthGuard implements CanActivate {
     constructor(private router: Router , private _sharedService: SharedService) { }
 
     public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
+     
         if (localStorage.getItem('currentUser')) {
             // logged in so return true
             return true;
-        }
-        // 
+        } 
         // not logged in so redirect to login page with the return url
+        // , { queryParams: { returnUrl: state.url }}
         this.router.navigate(['/login']);
         this._sharedService.emitChange('End call');
         return false;
     }
+
 }

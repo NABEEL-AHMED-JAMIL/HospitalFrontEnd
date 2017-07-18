@@ -15,6 +15,7 @@ import {
   NgTablePagingDirective,
   NgTableSortingDirective 
 } from 'ng2-table/ng2-table';
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 //------------Component------------------------------------
 import { AlertComponent } from './_directives/index';
 import { AppComponent } from './app.component';
@@ -23,19 +24,12 @@ import { LoginComponent } from './login/index';
 import {RegisterComponent} from './register/index';
 import {AddNote} from './addNote/index';
 import { CDialogComponent } from './_dialog_box/index';
+import { AddPatient } from './addPatient/index';
 //----------------Service------------------------------
 import { AuthGuard } from './_guards/index';
-import {
-  SharedService, 
-  AlertService, 
-  AuthenticationService,
-  DocterService,
-  NoteService,
-  PatientService,
-  DocterTypeService
+import { SharedService, AlertService, AuthenticationService, DoctorService,
+         NoteService, PatientService, DoctorTypeService, UtilService, ConfigService
 } from './_services/index';
-
-
 
 
 @NgModule({
@@ -46,6 +40,7 @@ import {
     LoginComponent,
     RegisterComponent,
     AddNote,
+    AddPatient,
     CDialogComponent,
     // Directive same like component....
     NgTableComponent, 
@@ -60,21 +55,16 @@ import {
     HttpModule,
     BootstrapModalModule,
     routing,
+    MultiselectDropdownModule,
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
     PaginationModule.forRoot()    
      
   ],
   providers: [
-    AuthGuard,
-    SharedService,
-    AlertService,
-    AuthenticationService,
-    DocterService,
-    NoteService,
-    PatientService,
-    DocterTypeService,
-
+    AuthGuard, SharedService, AlertService, AuthenticationService,
+    DoctorService,NoteService, PatientService, DoctorTypeService,
+    UtilService,ConfigService
   ],
   entryComponents: [
     CDialogComponent

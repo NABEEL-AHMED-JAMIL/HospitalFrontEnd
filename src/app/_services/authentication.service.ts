@@ -1,39 +1,40 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 //----------------Service------------------------------
+import { ConfigService } from './config.service';
 //-------------Routing---------------------------------
 //-------------Model-----------------------------------
-import { Docter } from '../_models/index';
+import { DocterDTO } from '../_models/index';
 //-------------Module----------------------------------
 //------------Component--------------------------------
 
 
 @Injectable()
 export class AuthenticationService {
-    //
-    private userUrl = 'http://localhost:8080/login';
-
-    constructor(private http: Http) { }
     
-    public login(docter: Docter): Observable<any> {
-        // used the 
-        console.log(JSON.stringify(docter))
-        return this.http.post(this.userUrl, JSON.stringify({ username: docter.userName, password: docter.password }))
-            .map((response: Response) => {
-                // login successful if there's a jwt token in the response
-                let user = response.json();
+
+    constructor(private configService: ConfigService, private http: Http) { }
+
+    // login service
+     public login(docterDto: DocterDTO): Observable<any> { 
+       // for now just used the body
+       console.log(this.configService.getlogin_url);
+       return this.http.post(this.configService.getlogin_url, docterDto).map((response: Response) => {
+            let user = response.json();
+            console.log("retrived the user ======> "+JSON.stringify(user));
                 if (user != null) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));     
                 }
-            });
+            return response.json();
+       });
     }
-    
+
     public logout(): any {
-        // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+         // remove user from local storage to log user out
+         localStorage.removeItem('principal');
     }
 
 }

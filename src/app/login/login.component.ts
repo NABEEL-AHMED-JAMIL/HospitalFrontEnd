@@ -1,53 +1,62 @@
 import { Component, OnInit } from '@angular/core';
+//----------------Service------------------------------
+import {SharedService, AlertService, AuthenticationService, UtilService  } from '../_services/index';
+//-------------Routing---------------------------------
 import { Router, ActivatedRoute } from '@angular/router';
-import {SharedService, AlertService, AuthenticationService,NoteService, DocterTypeService  } from '../_services/index';
+//-------------Model----------------------------------
+//-------------Module----------------------------------
+//------------Component--------------------------------
 import { AppComponent } from "../app.component";
-import { Docter } from "../_models/index";
 
 
 @Component({
     selector: 'login',
-    templateUrl: 'login.component.html',
-    styleUrls: ['login.component.css']
+    templateUrl: 'login.component.html'
       
 })
 
 
 export class LoginComponent implements OnInit {
 
-    model: any = {};
-    loading = false;
-    returnUrl: string;
+    public model: any = {};
+    public loading = false;
+    public image: String;
+    public returnUrl: string;
+
+    
     
     constructor(
-        private _sharedService: SharedService,
         private route: ActivatedRoute,
         private router: Router,
+        private _sharedService: SharedService,
         private authenticationService: AuthenticationService,
         private alertService: AlertService,
-        private appComponent: AppComponent,
-        private docter: DocterTypeService
+        private utilService: UtilService
        ) { }
-       
+
+
     ngOnInit() {
+        this.image = this.utilService.getCircalImage();
+        console.log(this.image);
         // reset login status
         this.authenticationService.logout();
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
-
+    
     public login() {
 
-        this.loading = true;
-        this.authenticationService.login(this.model)
-            .subscribe( data => {
-                this._sharedService.emitChange('Data from child');
-                this.router.navigate([this.returnUrl]);
-            },
-            error => {
-                this.alertService.error("Wrong Password And User Name");
-                this.loading = false;
-            });
-    }
-    
+         this.loading = true;
+         this.authenticationService.login(this.model)
+            .subscribe(
+                data => {
+                    // open the gate for show the entriy
+                    this._sharedService.statusEmitChange(true);
+                    this.router.navigate([this.returnUrl]);
+                },
+                error => {
+                    this.alertService.error("Wrong Password And User Name");
+                    this.loading = false;
+                });
+     }
 }

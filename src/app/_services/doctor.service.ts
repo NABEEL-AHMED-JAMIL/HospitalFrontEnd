@@ -1,33 +1,30 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 //----------------Service------------------------------
+import { ConfigService } from './config.service';
 //-------------Routing---------------------------------
 //-------------Model-----------------------------------
-import { Docter } from '../_models/index';
+import { Doctor } from '../_models/index';
 //-------------Module----------------------------------
 //------------Component--------------------------------
 
 
 
 @Injectable()
-export class DocterService {
+export class DoctorService {
     
     private docterUrl = 'http://localhost:8080/docter/register';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private configService: ConfigService) { }
     
-    public create(docter: Docter): any{
+    public create(doctor: Doctor): any{
         // , this.jwt()
-        return this.http.post(this.docterUrl, docter , this.jwt())
+        return this.http.post(this.docterUrl, doctor)
             .map((response: Response) => {
-                response.json()
+               return response.json();
             });
     }
 
-    
-    private jwt() {
-        let headers = new Headers({ 'Authorization': 'Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==' });
-        return new RequestOptions({ headers: headers });
-    }
+
     
 }

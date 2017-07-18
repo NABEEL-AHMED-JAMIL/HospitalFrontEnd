@@ -5,12 +5,27 @@
 <div class="container-fluid">
     <div class="panel panel-primary">
         <div class="panel-heading ">
-            <div class="row" (onVoted)="onVoted($event)">
-                <div class="column col-md-9">
-                    <h4>{{patient}}</h4>
+            <div class="row">
+                <div class="column col-md-4">
+                    <button type="button" class="btn btn-info"><h5>Pakistan{{patient}}</h5></button>
                 </div>
-                <div class="column col-md-3 text-right">Welcome {{userName}} &nbsp; <a [routerLink]="['/login']" class="color-anchor" (click)="clicked($event)">Logout</a> &nbsp; <a [routerLink]="['/register']" class="color-anchor" (click)="clicked($event)">Register</a></div>
-
+                <div class="column col-md-4" align="center">
+                    
+                    <h4>Welcome {{userName}} {{loginMessage}}</h4>
+                </div>
+                <!--used the condition-->
+                <div class="column col-md-4 text-right" style="padding-top: 10px;">
+                    &nbsp; 
+                    <button type="button" class="btn btn-warning">
+                        <a [routerLink]="['/login']" class="color-anchor" (click)="logout($event)">Logout</a>
+                    </button>
+                    &nbsp; 
+                    <!-- Indicates a dangerous or potentially negative action -->
+                    <button type="button" class="btn btn-success">
+                        <a [routerLink]="['/register']" class="color-anchor">Register</a>
+                    </button>
+                    
+                </div>
             </div>
         </div>
         <br>

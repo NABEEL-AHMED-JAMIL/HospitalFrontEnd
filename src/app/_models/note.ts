@@ -1,7 +1,7 @@
 //----------------Service------------------------------
 //-------------Routing---------------------------------
 //-------------Model-----------------------------------
-import { DocterType , Docter } from './index';
+import { DoctorType , Doctor } from './index';
 //-------------Module----------------------------------
 //------------Component--------------------------------
 
@@ -12,8 +12,8 @@ export class Note {
         public id : Number,
         public description:String,
         public noteDate: Date ,
-        public docter: Docter,
-        public docterType:DocterType
+        public doctor: Doctor,
+        public doctorType:DoctorType
    ){}   
 
 }

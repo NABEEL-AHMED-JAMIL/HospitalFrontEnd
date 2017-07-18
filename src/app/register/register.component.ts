@@ -1,9 +1,8 @@
 import { Component , OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertService,DocterTypeService,DocterService} from '../_services/index';
-import {MultiSelectModule} from 'primeng/primeng';
-
-
+import { AlertService,DoctorTypeService,DoctorService, UtilService} from '../_services/index';
+import { DoctorType, Doctor, Role } from '../_models/index';
+import { IMultiSelectOption } from 'angular-2-dropdown-multiselect';
 
 
 @Component({
@@ -15,60 +14,51 @@ import {MultiSelectModule} from 'primeng/primeng';
 
 
 export class RegisterComponent implements OnInit{
-    
-    model: any = {};
+
+    private image: String;
+    doctor: any = {};
+    newDoctorType: any = {};
+    private doctorType: DoctorType;
     loading = false;
-    private allDoctorType :Array<any>;
-     options = [
-         {id: 1, name:'OptionA', value:'1', checked:true},
-         {id: 1,name:'OptionB', value:'2', checked:false},
-         {id: 1,name:'OptionC', value:'3', checked:true}
-         ]
-    public genders = [
-    { value: 'F', display: 'Female' },
-    { value: 'M', display: 'Male' }
-  ];
-
-  public topics = [
-    { value: 'game', display: 'Gaming' },
-    { value: 'tech', display: 'Technology' },
-    { value: 'life', display: 'Lifestyle' },
-  ];
-
-
-
-  get selectedOptions() { // right now: ['1','3']
-    return this.options
-              .filter(opt => opt.checked)
-              .map(opt => opt.value)
-  }
-types = [{id: 1, role:'Really Smart'}, {id: 2, role:'Super Flexible'},
-        {id: 3, role:'Super Hot'}, {id: 4, role:'Weather Changer'},
-             ];
+    private allDoctorType :Array<DoctorType>;
+    optionsModel: number[];
+    myOptions: IMultiSelectOption[];
     
+
+
     constructor(
         private router: Router,
-        private docterTypeService: DocterTypeService,
+        private doctorTypeService: DoctorTypeService,
         private alertService: AlertService,
-        private userService:DocterService) {  }
+        private doctorService:DoctorService,
+        private utilService:UtilService) {  }
 
     public ngOnInit():void {
-        
+        this.image = this.utilService.getCircalImage();
+        this.myOptions = [
+            { id: 1, name: 'Option 1' },
+            { id: 2, name: 'Option 2' },
+        ];
         this.loadAllDoctorType();
+    }
+
+    onChange() {
+        console.log(this.optionsModel);
     }
     
     private loadAllDoctorType() { 
-        this.docterTypeService.getAllDoctorType()
-            .subscribe(allDoctorType => { 
-                this.allDoctorType = allDoctorType;
-                console.log(this.allDoctorType);   
-        });
+         this.doctorTypeService.getAllDoctorType().
+           subscribe(allDoctorType => { 
+             this.allDoctorType = allDoctorType.filter((item:any) => { return  !"ALL".match(item.type) ; });
+             console.log(this.allDoctorType);
+            });
+        
     }
 
-    public register() {
-        console.log(JSON.stringify(this.model));
+    public registerDoctor() {
+        console.log(JSON.stringify(this.doctor));
         this.loading = true;
-        this.userService.create(this.model)
+        this.doctorService.create(this.doctor)
             .subscribe( data => {
                 console.log(data);
                 this.alertService.success('Registration successful', true);
@@ -78,6 +68,10 @@ types = [{id: 1, role:'Really Smart'}, {id: 2, role:'Super Flexible'},
                 this.alertService.error("User Name Already Taken");
                 this.loading = false;
             });
+    }
+
+    public registerDoctorType(){
+        
     }
 
 }

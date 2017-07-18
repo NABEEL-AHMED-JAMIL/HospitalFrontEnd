@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 //----------------Service------------------------------
-import {PatientService, DocterService,SharedService } from '../_services/index';
+import {PatientService, DoctorService,SharedService } from '../_services/index';
 import { DialogService } from "ng2-bootstrap-modal";
 //-------------Routing---------------------------------
 import { Router } from '@angular/router';
 //-------------Model----------------------------------
-import { Docter } from '../_models/index';
+import { Doctor } from '../_models/index';
 //-------------Module----------------------------------
 //------------Component--------------------------------
 import { CDialogComponent } from '../_dialog_box/index';
@@ -31,6 +31,7 @@ export class HomeComponent  implements OnInit {
         {title: 'MR #' , name: 'mrNo'},
         {title: 'Name' , name: 'name'}, 
         {title:'Phone' , name:'phone'},
+        {title:'Age' , name:'age'},
     ];
    // database data
    // convert this data to patients
@@ -43,22 +44,22 @@ export class HomeComponent  implements OnInit {
     };
     
     // first get the hero list and put into the obserable method
-    private currentDocter: Docter;
+    private currentDoctor: Doctor;
     
     constructor(private _sharedService: SharedService,private dialogService: DialogService,
-                private docterService: DocterService,private patientService: PatientService,
+                private doctorService: DoctorService,private patientService: PatientService,
                 private router: Router) {
-        this.currentDocter = JSON.parse(localStorage.getItem('currentUser'));
+        this.currentDoctor = JSON.parse(localStorage.getItem('currentUser'));
     }
    // this is onit method
    public ngOnInit():void {
+       console.log("Home user");
        this.loadAllPatient();
-       this._sharedService.emitChange("Data from child");
     }
     
     private loadAllPatient() { 
-        this.patientService.getAllPatient().
-            subscribe(patients => { 
+        this.patientService.getAllPatient().subscribe(patients => {
+                console.log(patients); 
                 this.patients = patients;
                 if(this.patients.length == 0) {
                     this.length = 0;

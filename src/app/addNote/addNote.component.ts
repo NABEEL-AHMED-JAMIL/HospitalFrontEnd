@@ -1,13 +1,13 @@
 import { Component , OnInit } from '@angular/core';
 //----------------Service------------------------------
 import { DialogService } from "ng2-bootstrap-modal";
-import { DocterService, PatientService,
-         SharedService,DocterTypeService,
+import { DoctorService, PatientService,
+         SharedService,DoctorTypeService,
          NoteService , AlertService, UtilService } from '../_services/index';
 //-------------Routing---------------------------------
 import { Router, ActivatedRoute } from '@angular/router';
 //-------------Model----------------------------------
-import {Note , Docter , DocterType} from '../_models/index';
+import {Note , Doctor , DoctorType} from '../_models/index';
 //-------------Module----------------------------------
 //------------Component--------------------------------
 import { CDialogComponent } from '../_dialog_box/index';
@@ -48,9 +48,9 @@ export class AddNote implements OnInit{
         className: ['table-striped', , 'table-bordered' ]
     };
     // doctor who login and access the app
-    private currentDocter: Docter;
+    private currentDoctor: Doctor;
     // current docter type
-    private currentSelectDocterType: DocterType;
+    private currentSelectDoctorType: DoctorType;
     // current patient mr_no
     private mrNo : any;
     // getting all patient note
@@ -58,20 +58,19 @@ export class AddNote implements OnInit{
     // help full for search aginst the type
     private showCurrentNotes:Array<any>;
     // getting the all docter type
-    private allSearchType: Array<DocterType>;
+    private allSearchType: Array<DoctorType>;
     // this is show on the top
-    private allOptionForNewNote:Array<DocterType>;
+    private allOptionForNewNote:Array<DoctorType>;
 
     // constructor for used the service
     constructor(
         private utilService:UtilService, private _sharedService: SharedService,
         private alertService:AlertService, private dialogService:DialogService,
-        private noteService:NoteService, private docterService: DocterService , 
-        private docterTypeService:DocterTypeService, private patientService: PatientService,
+        private noteService:NoteService, private doctorService: DoctorService , 
+        private doctorTypeService:DoctorTypeService, private patientService: PatientService,
         public route: ActivatedRoute, private router: Router) {
-
-
-        this.currentDocter = JSON.parse(localStorage.getItem('currentUser'));
+        
+            this.currentDoctor = JSON.parse(localStorage.getItem('currentUser'));
     }
     
     public ngOnInit() {
@@ -81,7 +80,7 @@ export class AddNote implements OnInit{
    
     private loadAllDocterType():any {
         
-       this.docterTypeService.getAllDoctorType().
+       this.doctorTypeService.getAllDoctorType().
            subscribe(allDoctorType => { 
                this.allSearchType = allDoctorType;          
                // remove the first one
@@ -92,6 +91,7 @@ export class AddNote implements OnInit{
     }
 
     private getCurrentSelectPatientNote():any {
+
         this.route.params.subscribe(params => {this.mrNo = params['mrNo'];});
         // if the mrno is null which is not possible but for some used here like error handler the page
         if(this.mrNo == null){
@@ -100,6 +100,7 @@ export class AddNote implements OnInit{
             // get the whole patient note's related to the "MrNo"
             this.patientService.getAllPatientNote(this.mrNo).
                 subscribe(patientObject => {
+                    console.log(JSON.stringify(patientObject));
                     if(patientObject.length == 0) {
                       // only show the "name" and the "mrno" on the screen for current select "Patient"
                       this.patientService.getPatient(this.mrNo).
@@ -243,7 +244,7 @@ export class AddNote implements OnInit{
            if(this.model.note == null) {
                this.model.note = "NULL";
             }
-          this.noteService.addNewNote(this.patientMrNo, new Note(null, this.model.note, this.utilService.getTodayDate(), this.currentDocter, 
+          this.noteService.addNewNote(this.patientMrNo, new Note(null, this.model.note, this.utilService.getTodayDate(), this.currentDoctor, 
                 this.allOptionForNewNote.find( item => item.id == this.model.noteType))).
                     subscribe(data => {
                         this.getCurrentSelectPatientNote();
@@ -263,7 +264,7 @@ export class AddNote implements OnInit{
         }
     }
     private updateNoteId:Number;
-    private tempDocter:DocterType;
+    private tempDoctor:DoctorType;
     // this is event on the cell Click
     public onCellClick(data: any): any {
         this.dialogService.addDialog(CDialogComponent, {
@@ -277,12 +278,12 @@ export class AddNote implements OnInit{
                 this.hideDetal = false;
                 // set the model for update
                 // first filter the note and 
-                this.tempDocter = this.allOptionForNewNote.find((item:any) => {
+                this.tempDoctor = this.allOptionForNewNote.find((item:any) => {
                     return data.row.noteType.match(item.type)
                 });
                 // get the id of the note
                 this.updateNoteId = data.row.noteId;
-                this.model = { noteType: this.tempDocter.id , note: data.row.description };
+                this.model = { noteType: this.tempDoctor.id , note: data.row.description };
             }else if(isConfirmed == "delete") {
                 this.noteService.deleteNote(data.row.noteId).subscribe(deletedata => {}, error => {});
                 // configuer again

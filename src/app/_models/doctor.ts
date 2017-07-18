@@ -1,23 +1,25 @@
 //----------------Service------------------------------
 //-------------Routing---------------------------------
 //-------------Model----------------------------------
-import { DocterType } from './index';
+import { DoctorType } from './index';
 import { Role } from './index';
 //-------------Module----------------------------------
 //------------Component--------------------------------
 
 
-export class Docter {
+// ok docter
+export class Doctor {
 
    public id: Number;
+   public email:String;
    public userName: String;
-   public password: String;
-   public gender:Boolean;
-   public active: Boolean;
+   public passWord: String;
    public firstName: String;
    public lastName: String;
+   public gender:Boolean;
+   public active: Boolean;
    public role: Role[];
-   public docterType:DocterType;
+   public doctorType:DoctorType;
    
    constructor(){}
     
