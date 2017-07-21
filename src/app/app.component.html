@@ -7,14 +7,15 @@
         <div class="panel-heading ">
             <div class="row">
                 <div class="column col-md-4">
-                    <button type="button" class="btn btn-info"><h5>Pakistan{{patient}}</h5></button>
+                    <h5>{{patient}}</h5>
                 </div>
                 <div class="column col-md-4" align="center">
                     
-                    <h4>Welcome {{userName}} {{loginMessage}}</h4>
+                    <h4><p *ngIf="hide">Welcome {{userName}}</p><p *ngIf="!hide">{{loginMessage}}</p></h4>
                 </div>
                 <!--used the condition-->
-                <div class="column col-md-4 text-right" style="padding-top: 10px;">
+                <!--  -->
+                <div *ngIf="hide" class="column col-md-4 text-right" style="padding-top: 10px;" >
                     &nbsp; 
                     <button type="button" class="btn btn-warning">
                         <a [routerLink]="['/login']" class="color-anchor" (click)="logout($event)">Logout</a>

@@ -17,10 +17,8 @@ export class PatientService {
 
     // new patient
     public newPatient(patient:Patient) {
-        return this.http.post(this.configService.getnewPatient_url, patient)
-            .map((response: Response) => {
-                return response.json();
-        });
+        console.log("model:"+JSON.stringify(patient)+" url:"+this.configService.getnewPatient_url);
+        return this.http.post(this.configService.getnewPatient_url, patient);
     }
 
     // list of patient

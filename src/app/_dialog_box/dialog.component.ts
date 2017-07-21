@@ -20,29 +20,34 @@ export interface ConfirmModel {
 
 
 export class CDialogComponent extends DialogComponent<ConfirmModel, String> {
-  
-  constructor(dialogService: DialogService) {
-      super(dialogService);
-  }
+    constructor(dialogService: DialogService) {
+        super(dialogService);
+    }
 
-  public viewNotes(): any {
-      this.result = "view";
-      this.close();
-  }
+    public viewNotes(): any {
+        this.result = "view";
+        this.close();
+    }
 
-  public edit(): any{
-      this.result = "edit";
-      this.close();
-  }
+    public edit(): any{
+        this.result = "edit";
+        this.close();
+    }
 
-  public delete(): any{
-      this.result = "delete";
-      this.close();
-  }
+    public delete(): any{
+        this.result = "delete";
+        this.close();
+    }
 
-  public cancel(): any {
-      this.result = "cancel";
-      this.close();
-  }
+    public cancel(): any {
+        this.result = "cancel";
+        this.close();
+    }
+
+    // this is only show when patient add
+    public addNewNotes(){
+         this.result = "newNote";
+        this.close();
+    }
 
 }

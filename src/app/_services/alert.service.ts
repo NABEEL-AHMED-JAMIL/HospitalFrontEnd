@@ -1,12 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
-//----------------Service------------------------------
 //-------------Routing---------------------------------
 import { Router, NavigationStart } from '@angular/router';
-//-------------Model-----------------------------------
-//-------------Module----------------------------------
-//------------Component--------------------------------
 
 
 @Injectable()

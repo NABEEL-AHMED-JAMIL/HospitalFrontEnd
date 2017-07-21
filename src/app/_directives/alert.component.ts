@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 //----------------Service------------------------------
 import { AlertService } from '../_services/index';
-//-------------Routing---------------------------------
-//-------------Model----------------------------------
-//-------------Module----------------------------------
-//------------Component--------------------------------
+
 
 
 @Component({
@@ -14,8 +11,7 @@ import { AlertService } from '../_services/index';
 
 
 export class AlertComponent {
-    // this message show the alert for log_in 
-    //(true: message => login Success , false: message => login Fail);
+
     
     public message: any;
     

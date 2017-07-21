@@ -1,18 +1,57 @@
-<div class="container">
-    <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate style="margin-right: 25px;">
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !userName.valid }">
-            <label for="userName">User Name</label>
-            <input type="text" class="form-control" name="userName" [(ngModel)]="model.userName" #userName="ngModel" required />
-            <div *ngIf="f.submitted && !userName.valid" class="help-block">UserName is required</div>
+<div class="container" *ngIf="hide">
+    <div class="row">
+        <div class="col-sm-4"><h2>Login Doctor</h2></div>
+        <div class="col-sm-8 text-right" style="padding-top: 20px; width: 65%;"> 
+            <button type="button" class="btn btn-default" (click)="hideShow()">
+                <span class="glyphicon glyphicon-plus"></span>
+                Forgot Password
+            </button>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !passWord.valid }">
-            <label for="passWord">Password</label>
-            <input type="passWord" class="form-control" name="passWord" [(ngModel)]="model.passWord" #passWord="ngModel" required />
-            <div *ngIf="f.submitted && !passWord.valid" class="help-block">Password is required</div>
+    </div>
+    
+        <form name="form" (ngSubmit)="loginform.form.valid && login()" #loginform="ngForm" novalidate style="margin-right: 25px;">
+    
+            <div class="form-group" [ngClass]="{ 'has-error': loginform.submitted && !userName.valid }">
+                <label for="userName">User Name</label>
+                <input type="text" class="form-control" name="userName" [(ngModel)]="docterDTO.userName" #userName="ngModel" required />
+                <div *ngIf="loginform.submitted && !userName.valid" class="help-block">UserName is required</div>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': loginform.submitted && !passWord.valid }">
+                <label for="passWord">Password</label>
+                <input type="passWord" class="form-control" name="passWord" [(ngModel)]="docterDTO.passWord" #passWord="ngModel" required />
+                <div *ngIf="loginform.submitted && !passWord.valid" class="help-block">Password is required</div>
+            </div>
+            <div class="form-group">
+                <button [disabled]="loadinglogin" class="btn btn-primary">Login</button>
+                <img *ngIf="loadinglogin" [src]="image"/>
+                <button type="reset" value="Reset" class="btn btn-link">Reset</button>
+            </div>
+        </form>
+    
+    
+    <br>
+</div>
+
+<div class="container"  *ngIf="!hide">
+    <div class="row">
+        <div class="col-sm-4"><h2>Enter Your Eamil</h2></div>
+        <div class="col-sm-8 text-right" style="padding-top: 20px; width: 65%;"> 
+            <button type="button" class="btn btn-default" (click)="hideShow()">
+                <span class="glyphicon glyphicon-plus"></span>
+                Back
+            </button>
+        </div>
+    </div>
+    <form name="form" (ngSubmit)="forgotform.form.valid && send()" #forgotform="ngForm" novalidate style="margin-right: 25px;">
+        <div class="form-group" [ngClass]="{ 'has-error': forgotform.submitted && !email.valid }">
+            <label for="email">User Name</label>
+            <input type="email" class="form-control" name="email" [(ngModel)]="forgotPassword.email" #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" required />
+            <div *ngIf="forgotform.submitted && !email.valid" class="help-block">Email required</div>
         </div>
         <div class="form-group">
-            <button [disabled]="loading" class="btn btn-primary">Login</button>
-            <img *ngIf="loading" [src]="image"/>
+            <button [disabled]="loadingForgot" class="btn btn-primary">Send</button>
+            <img *ngIf="loadingForgot" [src]="image"/>
+            <button type="reset" value="Reset" class="btn btn-link">Reset</button>
         </div>
     </form>
     <br>

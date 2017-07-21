@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 //----------------Service------------------------------
-import {PatientService, DoctorService,SharedService } from '../_services/index';
+import { PatientService } from '../_services/index';
 import { DialogService } from "ng2-bootstrap-modal";
 //-------------Routing---------------------------------
 import { Router } from '@angular/router';
-//-------------Model----------------------------------
-import { Doctor } from '../_models/index';
-//-------------Module----------------------------------
 //------------Component--------------------------------
 import { CDialogComponent } from '../_dialog_box/index';
 
@@ -43,23 +40,18 @@ export class HomeComponent  implements OnInit {
        className: ['table-striped', , 'table-bordered' ]
     };
     
-    // first get the hero list and put into the obserable method
-    private currentDoctor: Doctor;
-    
-    constructor(private _sharedService: SharedService,private dialogService: DialogService,
-                private doctorService: DoctorService,private patientService: PatientService,
-                private router: Router) {
-        this.currentDoctor = JSON.parse(localStorage.getItem('currentUser'));
-    }
+    constructor(private dialogService: DialogService,private patientService: PatientService,
+                private router: Router) {}
+
+
    // this is onit method
    public ngOnInit():void {
-       console.log("Home user");
        this.loadAllPatient();
     }
     
     private loadAllPatient() { 
-        this.patientService.getAllPatient().subscribe(patients => {
-                console.log(patients); 
+        this.patientService.getAllPatient()
+            .subscribe(patients => { 
                 this.patients = patients;
                 if(this.patients.length == 0) {
                     this.length = 0;
@@ -69,15 +61,10 @@ export class HomeComponent  implements OnInit {
                 this.onChangeTable(this.config);
             });
     }
-    
-    public changePage(page:any, data:Array<any> = this.patients): Array<any> {
-        let start = (page.page - 1) * page.itemsPerPage;
-        let end = page.itemsPerPage > -1 ? (start + page.itemsPerPage): data.length;
-        return data.slice(start, end);
-    }
-    
+
     // this is the whole structrure of the table that change by(sorting , filtering)
     public onChangeTable(config:any, page:any = {page: this.page, itemsPerPage: this.itemsPerPage}) :any {
+        console.log(config);
         if (config.filtering) {
             Object.assign(this.config.filtering, config.filtering);
         }
@@ -90,6 +77,14 @@ export class HomeComponent  implements OnInit {
         this.rows = page && config.paging ? this.changePage(page, sortedData) : sortedData;
         this.length = sortedData.length;
     }
+    
+    public changePage(page:any, data:Array<any> = this.patients): Array<any> {
+        let start = (page.page - 1) * page.itemsPerPage;
+        let end = page.itemsPerPage > -1 ? (start + page.itemsPerPage): data.length;
+        return data.slice(start, end);
+    }
+    
+
     // this is the filter that filter the data in the table
     public changeFilter(data:any, config:any):any {
         let filteredData:Array<any> = data;
@@ -113,14 +108,21 @@ export class HomeComponent  implements OnInit {
         filteredData.forEach((item:any) => {
             let flag = false;
             this.columns.forEach((column:any) => {
-                if (item[column.name].toString().match(this.config.filtering.filterString)) {        
+                if(item[column.name] != null){
+                    if (item[column.name].toString().match(this.config.filtering.filterString)) {        
                     flag = true;
                 }
+                // this change will not allow the user to add the other filter
                 if (column.name == "name") {
                     if (item[column.name].toLowerCase().toString().match(this.config.filtering.filterString)) {        
                         flag = true;
                     }
                 }
+            }else{
+                item[column.name] = "--------------";
+                flag = true;
+            }
+                
             });
             if (flag) {
                 tempArray.push(item);
@@ -162,7 +164,7 @@ export class HomeComponent  implements OnInit {
   public onCellClick(data: any): any {   
       this.dialogService.addDialog(CDialogComponent, {
           title:'Patient Operation',
-          message:"Pakistan zinda.........."
+          message: "Mr# : "+data.row.mrNo+" ||  Name : "+data.row.name,
         }).subscribe((isConfirmed :any)=> {
             if(isConfirmed == "view") {  
                 this.router.navigate(['/addnote', data.row.mrNo]);

@@ -1,8 +1,9 @@
 <div class="panel-body">
     <div class="row" *ngIf="newNote">
-        <div class="row  classWithPadSide">
+        <div class="col s12  classWithPadSide">
+            
             <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
-                <button type="button" class="btn btn-default" (click)="back()">Back</button>
+                <button type="button" class="btn btn-default" >Back</button>
                 <br>
                 <div class="form-group">
                     <label for="power">Select Note</label>
@@ -22,6 +23,7 @@
                 <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">{{sendType}}</button>
                 <button type="reset" class="btn btn-default">Reset</button>
             </form>
+        
         </div>
     </div>
     <div class="container-fluid" *ngIf="hideDetal">
@@ -37,7 +39,7 @@
                 </select>
             </div>
             <div class="col-sm-2">
-                <button type="button" class="btn btn-default" >
+                <button type="button" class="btn btn-default" [routerLink]="['/home']">
                     Back
                 </button>
                 <button type="button" class="btn btn-default" (click)="Show($event)">
@@ -47,14 +49,28 @@
         </div>
     </div>
     <br>
-
+    <!--view the table  -->
     <div class="row" *ngIf="hideDetal">
         <div class="col-md-12 ">
-            <div class="row table-condensed classWithPadSide">
-                <ng-table class="sortable " [config]="config" (tableChanged)="onChangeTable(config)" (cellClicked)="onCellClick($event)" [rows]="rows" [columns]="columns">
+            <div class="table-condensed classWithPadSide">
+                <ng-table class="sortable" 
+                        [config]="config" 
+                        (tableChanged)="onChangeTable(config)"
+                        (cellClicked)="onCellClick($event)"
+                        [rows]="rows"
+                        [columns]="columns">
                 </ng-table>
             </div>
-            <pagination *ngIf="config.paging" class="pagination-sm" [(ngModel)]="page" [totalItems]="length" [itemsPerPage]="itemsPerPage" [maxSize]="maxSize" [boundaryLinks]="true" [rotate]="false" (pageChanged)="onChangeTable(config, $event)" (numPages)="numPages = $event">
+            <pagination *ngIf="config.paging" 
+                    class="pagination-sm"
+                    [(ngModel)]="page"
+                    [totalItems]="length"
+                    [itemsPerPage]="itemsPerPage"
+                    [maxSize]="maxSize"
+                    [boundaryLinks]="true"
+                    [rotate]="false"
+                    (pageChanged)="onChangeTable(config, $event)"
+                    (numPages)="numPages = $event">
             </pagination>
         </div>
     </div>

@@ -1,5 +1,6 @@
 import {Note} from './index';
 
+
 export class Patient {
 
    public mrNo: Number;

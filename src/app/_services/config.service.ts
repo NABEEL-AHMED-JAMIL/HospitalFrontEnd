@@ -13,6 +13,9 @@ export class ConfigService {
     private _logout_url: string = this._auth_url + '/logout';
     // register url
     private _register_url: string = this._api_url + '/register';
+    // forgotPassword
+    private _forgotPassword: string = this._api_url+this._auth_url+'/forgotPassword';
+
     // doctor url's
     private _doctor_url: string = '/doctor';
     private _getAllDoctor_url: string = this._api_url+this._doctor_url+'/getAllDoctor';
@@ -49,6 +52,9 @@ export class ConfigService {
     public get getlogout_url(): string { return this._logout_url; }
 
     public get getregister_url(): string { return this._register_url; }
+
+    public get getforgotPassword_url(): string { return this._forgotPassword; }
+
     // doctor
     public get getdoctors_url(): string { return this._getAllDoctor_url; }
 

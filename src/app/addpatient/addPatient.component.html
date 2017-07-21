@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-4"><h2>Register Patient</h2></div>
         <div class="col-sm-8 text-right" style="padding-top: 20px; width: 65%;">
-            <button type="button" class="btn btn-default" >Back</button> 
+            <button type="button" class="btn btn-default" [routerLink]="['/home']">Back</button> 
         </div>
     </div>
 
@@ -24,8 +24,8 @@
         </div>
         <div class="form-group">
             <button [disabled]="loading" class="btn btn-primary">Register</button>
-            <img *ngIf="loading" [src]="image"/>
-            <a [routerLink]="['/home']" class="btn btn-link">Cancel</a>
+            <img *ngIf="loadinglogin" [src]="image"/>
+            <button type="reset" value="Reset" class="btn btn-link">Reset</button>
         </div>
     </form>
 </div>

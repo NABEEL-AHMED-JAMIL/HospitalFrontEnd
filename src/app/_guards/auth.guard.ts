@@ -11,18 +11,17 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    constructor(private router: Router , private _sharedService: SharedService) { }
+    constructor(private router: Router, private sharedService: SharedService) { }
 
-    public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): any {
+    public canActivate(route: ActivatedRouteSnapshot, 
+        state: RouterStateSnapshot, ): any {
      
         if (localStorage.getItem('currentUser')) {
-            // logged in so return true
+            this.sharedService.emitChange(true);
             return true;
         } 
-        // not logged in so redirect to login page with the return url
-        // , { queryParams: { returnUrl: state.url }}
-        this.router.navigate(['/login']);
-        this._sharedService.emitChange('End call');
+        this.sharedService.emitChange(false);
+        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
         return false;
     }
 
