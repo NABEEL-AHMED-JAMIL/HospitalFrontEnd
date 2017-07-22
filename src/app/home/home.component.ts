@@ -64,7 +64,6 @@ export class HomeComponent  implements OnInit {
 
     // this is the whole structrure of the table that change by(sorting , filtering)
     public onChangeTable(config:any, page:any = {page: this.page, itemsPerPage: this.itemsPerPage}) :any {
-        console.log(config);
         if (config.filtering) {
             Object.assign(this.config.filtering, config.filtering);
         }
@@ -109,19 +108,18 @@ export class HomeComponent  implements OnInit {
             let flag = false;
             this.columns.forEach((column:any) => {
                 if(item[column.name] != null){
-                    if (item[column.name].toString().match(this.config.filtering.filterString)) {        
-                    flag = true;
-                }
-                // this change will not allow the user to add the other filter
-                if (column.name == "name") {
-                    if (item[column.name].toLowerCase().toString().match(this.config.filtering.filterString)) {        
+                    if (item[column.name].toString().match(this.config.filtering.filterString)) { 
                         flag = true;
                     }
+                    if (column.name == "name") {
+                        if (item[column.name].toLowerCase().toString().match(this.config.filtering.filterString)) {
+                            flag = true;
+                        }
+                    }
+                }else{
+                    item[column.name] = "--------------";
+                    flag = true;
                 }
-            }else{
-                item[column.name] = "--------------";
-                flag = true;
-            }
                 
             });
             if (flag) {

@@ -25,18 +25,18 @@ export class AppComponent {
   private patient: any;
   
   constructor(private _sharedService: SharedService, private authenticationService: AuthenticationService) {
-    this._sharedService.changeEmitted$.
-      subscribe(status => {
-        console.log("status "+ status);
-        if(status) {
-          // if the ture then used other wise not show
-          this.hide = status;
-          // getting the current doctor from the local storage
-          this.currentDoctor = JSON.parse(localStorage.getItem('currentUser'));
-          this.userName = this.currentDoctor.userName.toUpperCase();
-          // 
-        }
-      });
+	  this._sharedService.changeEmitted$.subscribe(status => {
+	      console.log("status "+ status);
+		  if(status) {
+			  this.hide = status;
+			  this.currentDoctor = JSON.parse(localStorage.getItem('currentUser'));
+			  this.userName = this.currentDoctor.userName.toUpperCase();
+		  }
+	   });
+    // gettign the patient name
+    this._sharedService.patientEmitted$.subscribe(patient =>{
+		this.patient = patient;
+	});
   }
   
   public logout(event) {

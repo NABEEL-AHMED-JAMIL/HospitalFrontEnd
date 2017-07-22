@@ -17,13 +17,11 @@ export class PatientService {
 
     // new patient
     public newPatient(patient:Patient) {
-        console.log("model:"+JSON.stringify(patient)+" url:"+this.configService.getnewPatient_url);
         return this.http.post(this.configService.getnewPatient_url, patient);
     }
 
     // list of patient
     public getAllPatient(): any {
-        console.log(this.configService.getAllPatient_url);
         return this.http.get(this.configService.getAllPatient_url)
             .map((response: Response) => {
                 return response.json();
@@ -32,23 +30,20 @@ export class PatientService {
 
     public getAllPatientNote(mrNo:Number): any {
         return this.http.get(this.configService.getAllPatientNote_url+mrNo)
-            .map((response: Response) => {
-               return response.json();
+            .map((response:Response) => {
+                return response.json();
             });
     }
 
     public getPatient(mrNo:Number): any {
         return this.http.get(this.configService.getpatient_url+mrNo)
-            .map((response: Response) => {
-               return response.json();
+            .map((response:Response) => {
+                return response.json();
             });
     }
 
     public deletePatient(mrNo:Number): any {
-        return this.http.delete(this.configService.getdeletePatient_url+mrNo)
-            .map((response: Response) => {
-               return response.json()
-            });
+        return this.http.delete(this.configService.getdeletePatient_url+mrNo);
     }
 
     public updatePatient(patient:Patient): any {

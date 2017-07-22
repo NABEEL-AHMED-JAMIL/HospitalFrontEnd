@@ -5,7 +5,7 @@ import { Observable }     from 'rxjs/Observable';
 import { ConfigService } from './config.service';
 //-------------Routing---------------------------------
 //-------------Model-----------------------------------
-import { Note } from '../_models/index';
+import { DoctorType } from '../_models/index';
 //-------------Module----------------------------------
 //------------Component--------------------------------
 
@@ -31,6 +31,12 @@ export class DoctorTypeService {
             .map((response: Response) => {
                return response.json()
             });
+   }
+
+   public createNewDoctorType(doctorType: String):any{
+       console.log(this.configService.getaddDoctorType_url+ '------'+ doctorType);
+       return this.http.post(this.configService.getaddDoctorType_url, doctorType).
+           map((response:Response) => { return response.json(); });
    }
 
 }

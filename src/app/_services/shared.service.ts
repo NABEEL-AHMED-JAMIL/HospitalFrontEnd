@@ -12,5 +12,11 @@ export class SharedService {
         this.emitChangeSource.next(change);
     }
     
+
+    private patientEmitChangeSource = new Subject<any>();
+    public patientEmitted$ = this.patientEmitChangeSource.asObservable(); 
+    public patientEmitChange(change: any): any {
+        this.patientEmitChangeSource.next(change);
+    }
  
 }

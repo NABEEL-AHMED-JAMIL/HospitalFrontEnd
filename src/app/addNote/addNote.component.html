@@ -1,50 +1,46 @@
 <div class="panel-body">
-    <div class="row" *ngIf="newNote">
-        <div class="col s12  classWithPadSide">
-            
-            <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
-                <button type="button" class="btn btn-default" >Back</button>
-                <br>
-                <div class="form-group">
+    <div *ngIf="!hideDetal">
+        <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+            <div class="row">
+                <div class="col-sm-5">
                     <label for="power">Select Note</label>
                     <select class="form-control" id="noteType" [(ngModel)]="model.noteType" name="noteType" #noteType="ngModel" required>
-                        <option *ngFor="let item of allOptionForNewNote" [value]="item.id">{{item.type}}</option>
-                    </select>
-                    <div [hidden]="noteType.valid || noteType.pristine" class="alert alert-danger">
-                        Note is required
-                    </div>
+                        <option *ngFor="let item of allOptionForNewNote" [value]="item.id">{{item.type}}</option></select>
+                    <div [hidden]="noteType.valid || noteType.pristine" class="alert alert-danger">Note is required</div>
                 </div>
-
-                <div class="form-group" style="height: 50%">
+                <div class="col-sm-2">
+                    <br>
+                    <button type="button" class="btn btn-default" (click)="showhide($event)">Back</button>   
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
                     <label for="note">Note</label>
                     <div [froalaEditor] id="note" name="note" #note="ngModel" [(ngModel)]="model.note"></div>
                 </div>
-
-                <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">{{sendType}}</button>
-                <button type="reset" class="btn btn-default">Reset</button>
-            </form>
-        
-        </div>
-    </div>
-    <div class="container-fluid" *ngIf="hideDetal">
-
-        <div class="row">
-            <div class="col-sm-1">
-                <b> Historical Notes</b>
             </div>
+            <br>
+            <button type="submit" class="btn btn-success" [disabled]="!heroForm.form.valid">{{sendType}}</button>
+            <button type="reset" class="btn btn-default">Reset</button> 
+        </form> 
+    </div>
 
+    <div *ngIf="hideDetal">
+        <div class="row">
             <div class="col-sm-9">
+                <b> Historical Notes</b>
                 <select class="form-control" #select (change)="filterNotes(select.value)">
                     <option *ngFor="let item of allSearchType"  [value]="item.id">{{item.type}}</option>
                 </select>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-3"><br>
                 <button type="button" class="btn btn-default" [routerLink]="['/home']">
                     Back
                 </button>
-                <button type="button" class="btn btn-default" (click)="Show($event)">
+                <button type="button" class="btn btn-primary" (click)="showhide($event)">
                     <span class="glyphicon glyphicon-plus"></span> Add New
                 </button>
+                <button class="btn btn-danger">Print Page</button>
             </div>
         </div>
     </div>
@@ -61,18 +57,21 @@
                         [columns]="columns">
                 </ng-table>
             </div>
+         <div class="text-center">
             <pagination *ngIf="config.paging" 
-                    class="pagination-sm"
-                    [(ngModel)]="page"
-                    [totalItems]="length"
-                    [itemsPerPage]="itemsPerPage"
-                    [maxSize]="maxSize"
-                    [boundaryLinks]="true"
-                    [rotate]="false"
-                    (pageChanged)="onChangeTable(config, $event)"
+                    class="pagination-sm" 
+                    [(ngModel)]="page" 
+                    [totalItems]="length" 
+                    [itemsPerPage]="itemsPerPage" 
+                    [maxSize]="maxSize" 
+                    [boundaryLinks]="true" 
+                    [rotate]="false" 
+                    (pageChanged)="onChangeTable(config, $event)" 
                     (numPages)="numPages = $event">
             </pagination>
         </div>
+        </div>
+
     </div>
 
 </div>

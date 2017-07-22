@@ -3,24 +3,21 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 //----------------Service------------------------------
 import { ConfigService } from './config.service';
 //-------------Routing---------------------------------
-//-------------Model-----------------------------------
-import { Doctor } from '../_models/index';
-//-------------Module----------------------------------
-//------------Component--------------------------------
 
 
 
 @Injectable()
-export class DoctorService {
+export class RoleService {
+    
 
     constructor(private http: Http, private configService: ConfigService) { }
     
-    public create(doctor: Doctor): any{
+    public getRole(): any{
         // , this.jwt()
-        return this.http.post(this.configService.getregister_url, doctor)
+        return this.http.get(this.configService.getRoles_url)
             .map((response: Response) => {
                return response.json();
             });
     }
-
+        
 }

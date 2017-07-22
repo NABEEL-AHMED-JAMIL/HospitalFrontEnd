@@ -6,6 +6,8 @@ import { DialogService } from "ng2-bootstrap-modal";
 import { Router } from '@angular/router';
 //------------Component--------------------------------
 import { CDialogComponent } from '../_dialog_box/index';
+//------------Patient-----------------------------------
+import { Patient } from '../_models/patient';
 
 @Component({
     selector: 'add-Patient',
@@ -18,6 +20,7 @@ export class AddPatient implements OnInit {
     public model:any = {};
     public image: String;
     public loadinglogin = false;
+    public patient: Patient;
 
     constructor(private utilService: UtilService, 
         private patientService: PatientService, 
@@ -33,33 +36,29 @@ export class AddPatient implements OnInit {
     private register(): any{
         this.loadinglogin = true;
         this.patientService.newPatient(this.model)
-            .subscribe(
-                data => {
-                    // on success show the dialog box
-                    console.log("data "+JSON.stringify(data));
-                    this.loadinglogin = false;
-                       this.dialogService.addDialog(CDialogComponent, {
-                           title:'Add New Patient Notes',
-                           message:"Pakistan zinda.........."
-                        }).subscribe((isConfirmed :any)=> {
-                            if(isConfirmed == "newNote") {
-                                // add the paitent id
-                                this.router.navigate(['/addnote', null]);
-                            }else if(isConfirmed == "delete"){
-                                // delte the paitent by id
-                                // and back to the home page
-                                this.router.navigate(['/home']);
-                            }else if (isConfirmed == "cancel") {
-                                // go to home page
-                                this.router.navigate(['/home']);
-                            }
-                    });
-                },
-                error => {
-                    console.log("error "+error);
-                    this.alertService.error("Error Creating the Patient");
-                    this.loadinglogin = false;
+            .subscribe( data => {
+                this.patient = data.json();
+                this.loadinglogin = false;
+                this.dialogService.addDialog( CDialogComponent, {
+                    title:'Add New Patient Notes',
+                     message: "Mr# : "+this.patient.mrNo+" ||  Name : "+this.patient.name,
+                }).subscribe((isConfirmed :any)=> {
+                   if(isConfirmed == "newNote") {
+                         this.router.navigate(['/addnote/', this.patient.mrNo]);
+                    }else if(isConfirmed == "delete"){
+                        this.patientService.deletePatient(this.patient.mrNo)
+                            .subscribe(
+                                data => { this.router.navigate(['/home']); }, 
+                                error => { this.router.navigate(['/home']);}
+                            );
+                    }else if (isConfirmed == "cancel") {
+                        this.router.navigate(['/home']);
+                    }
                 });
+            },error => {
+                this.alertService.error("Error Creating the Patient");
+                this.loadinglogin = false;
+        });
     }
     
 }

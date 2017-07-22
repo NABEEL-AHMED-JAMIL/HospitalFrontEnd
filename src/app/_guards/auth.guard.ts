@@ -20,7 +20,6 @@ export class AuthGuard implements CanActivate {
             this.sharedService.emitChange(true);
             return true;
         } 
-        this.sharedService.emitChange(false);
         this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
         return false;
     }

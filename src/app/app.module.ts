@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { PaginationModule } from 'ngx-bootstrap';
 import { BootstrapModalModule } from 'ng2-bootstrap-modal';
 import { FroalaEditorModule, FroalaViewModule } from 'angular2-froala-wysiwyg';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 //-------------Routing--------------------------------------
 import { routing }        from './app.routing';
 //------------import from the outsorce--------------------
@@ -15,7 +16,6 @@ import {
   NgTablePagingDirective,
   NgTableSortingDirective 
 } from 'ng2-table/ng2-table';
-import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
 //------------Component------------------------------------
 import { AlertComponent } from './_directives/index';
 import { AppComponent } from './app.component';
@@ -27,8 +27,10 @@ import { CDialogComponent } from './_dialog_box/index';
 import { AddPatient } from './addPatient/index';
 //----------------Service------------------------------
 import { AuthGuard } from './_guards/index';
-import { SharedService, AlertService, AuthenticationService, DoctorService,
-         NoteService, PatientService, DoctorTypeService, UtilService, ConfigService
+import { SharedService, AlertService, AuthenticationService,
+        DoctorService,NoteService,PatientService, 
+        DoctorTypeService, UtilService, ConfigService,
+        RoleService
 } from './_services/index';
 
 
@@ -50,22 +52,24 @@ import { SharedService, AlertService, AuthenticationService, DoctorService,
     
   ],
   imports: [
+    AngularMultiSelectModule,
     BrowserModule, 
     FormsModule,
     HttpModule,
     BootstrapModalModule,
     routing,
-    MultiselectDropdownModule,
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
     PaginationModule.forRoot()    
      
   ],
   providers: [
-    AuthGuard, SharedService, AlertService, AuthenticationService,
-    DoctorService,NoteService, PatientService, DoctorTypeService,
-    UtilService,ConfigService
+    AuthGuard, SharedService, AlertService,
+    AuthenticationService, DoctorService,NoteService,
+    PatientService, DoctorTypeService, UtilService,
+    ConfigService,RoleService
   ],
+  
   entryComponents: [
     CDialogComponent
     

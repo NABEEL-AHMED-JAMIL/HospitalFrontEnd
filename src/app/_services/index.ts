@@ -7,3 +7,4 @@ export * from './doctorType.service';
 export * from './shared.service';
 export * from './util.service';
 export * from './config.service';
+export * from './role.service';

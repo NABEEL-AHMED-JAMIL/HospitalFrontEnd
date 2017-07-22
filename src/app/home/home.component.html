@@ -8,19 +8,21 @@
         </div>
         <div class="col-sm-2">
             <button class="btn btn-primary" [routerLink]="['/add-Patient']">New Patient</button>
+            <button class="btn btn-danger">Print Page</button>
         </div>
     </div>
     <br>
     <div class="row-fluid">
-        <div>
+        
             <ng-table class="sortable" 
                       [config]="config" (tableChanged)="onChangeTable(config)" 
                       (cellClicked)="onCellClick($event)" 
                       [rows]="rows" 
                       [columns]="columns">
             </ng-table>
-        </div>
-        <pagination *ngIf="config.paging" 
+        
+        <div class="text-center">
+            <pagination *ngIf="config.paging" 
                     class="pagination-sm" 
                     [(ngModel)]="page" 
                     [totalItems]="length" 
@@ -30,7 +32,9 @@
                     [rotate]="false" 
                     (pageChanged)="onChangeTable(config, $event)" 
                     (numPages)="numPages = $event">
-        </pagination>
+            </pagination>
+        </div>
+        
     </div>
 
 </div>

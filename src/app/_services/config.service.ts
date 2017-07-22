@@ -15,6 +15,8 @@ export class ConfigService {
     private _register_url: string = this._api_url + '/register';
     // forgotPassword
     private _forgotPassword: string = this._api_url+this._auth_url+'/forgotPassword';
+    // get user role
+    private _userRole: string = this._api_url+'/getRole';
 
     // doctor url's
     private _doctor_url: string = '/doctor';
@@ -55,6 +57,8 @@ export class ConfigService {
 
     public get getforgotPassword_url(): string { return this._forgotPassword; }
 
+    public get getRoles_url(): string { return this._userRole; }
+
     // doctor
     public get getdoctors_url(): string { return this._getAllDoctor_url; }
 
@@ -83,7 +87,11 @@ export class ConfigService {
     public get getupdateNote_url(): string { return this._updateNote_url; }
 
     // patient url's
-    public get getpatient_url(): string { return this._patient_url; }
+    public get getpatient_url(): string { 
+        console.log(this._getPatient_url);
+        
+        return this._getPatient_url;
+     }
 
     public get getnewPatient_url(): string { return this._newPatient_url; }
     
