@@ -1,6 +1,6 @@
 export class DocterDTO{
     
-    public userName: String;
-    public passWord: String;
+    public username: String;
+    public password: String;
     
 }

@@ -7,10 +7,10 @@ export class Doctor {
 
    public id: Number;
    public email:String;
-   public userName: String;
-   public passWord: String;
-   public firstName: String;
-   public lastName: String;
+   public username: String;
+   public password: String;
+   public firstname: String;
+   public lastname: String;
    public gender:Boolean;
    public active: Boolean;
    public role: Role[];

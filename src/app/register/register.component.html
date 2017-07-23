@@ -21,12 +21,12 @@
     <br>
     <form name="newDoctorform" (ngSubmit)="f.form.valid && registerDoctor()" #f="ngForm" novalidate style="margin-right: 25px;"> 
         
-          <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+          <!-- <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
             <label for="email">Email</label>
             <input type="email" class="form-control" name="email" [(ngModel)]="newDocter.email" 
                     pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #email="ngModel" required />
             <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
-        </div> 
+        </div>  -->
         <!--email ok-->
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
             <label for="email">Email</label>
@@ -35,28 +35,28 @@
             <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
         </div>  
         <!--first name ok-->
-         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !firstName.valid }">
-            <label for="firstName">First Name</label>
-            <input type="text" class="form-control" name="firstName" [(ngModel)]="newDocter.firstName" #firstName="ngModel" required />
-            <div *ngIf="f.submitted && !firstName.valid" class="help-block">First Name is required</div>
+         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !firstname.valid }">
+            <label for="firstname">First Name</label>
+            <input type="text" class="form-control" name="firstname" [(ngModel)]="newDocter.firstname" #firstname="ngModel" required />
+            <div *ngIf="f.submitted && !firstname.valid" class="help-block">First Name is required</div>
         </div> 
         <!-- last name ok-->
-         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastName.valid }">
-            <label for="lastName">Last Name</label>
-            <input type="text" class="form-control" name="lastName" [(ngModel)]="newDocter.lastName" #lastName="ngModel" required />
-            <div *ngIf="f.submitted && !lastName.valid" class="help-block">Last Name is required</div>
+         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastname.valid }">
+            <label for="lastname">Last Name</label>
+            <input type="text" class="form-control" name="lastname" [(ngModel)]="newDocter.lastname" #lastname="ngModel" required />
+            <div *ngIf="f.submitted && !lastname.valid" class="help-block">Last Name is required</div>
         </div> 
         <!-- user name ok-->
-         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !userName.valid }">
-            <label for="userName">UserName</label>
-            <input type="text" class="form-control" name="userName" [(ngModel)]="newDocter.userName" #userName="ngModel" required />
-            <div *ngIf="f.submitted && !userName.valid" class="help-block">UserName is required</div>
+         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+            <label for="username">UserName</label>
+            <input type="text" class="form-control" name="username" [(ngModel)]="newDocter.username" #username="ngModel" required />
+            <div *ngIf="f.submitted && !username.valid" class="help-block">UserName is required</div>
         </div> 
         <!-- pass word ok-->
-         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !passWord.valid }">
-            <label for="passWord">Password</label>
-            <input type="password" class="form-control" name="passWord" [(ngModel)]="newDocter.passWord" #passWord="ngModel" required />
-            <div *ngIf="f.submitted && !passWord.valid" class="help-block">Password is required</div>
+         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name="password" [(ngModel)]="newDocter.password" #password="ngModel" required />
+            <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
         </div> 
 
         <!--doctor type ok -->

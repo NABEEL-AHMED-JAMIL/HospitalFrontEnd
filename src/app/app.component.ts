@@ -21,7 +21,7 @@ export class AppComponent {
   private loginMessage: string =  "Login Plase!";
   private hide: boolean = false;  
   private currentDoctor: Doctor;
-  private userName: any;
+  private username: any;
   private patient: any;
   
   constructor(private _sharedService: SharedService, private authenticationService: AuthenticationService) {
@@ -30,7 +30,7 @@ export class AppComponent {
 		  if(status) {
 			  this.hide = status;
 			  this.currentDoctor = JSON.parse(localStorage.getItem('currentUser'));
-			  this.userName = this.currentDoctor.userName.toUpperCase();
+			  this.username = this.currentDoctor.username.toUpperCase();
 		  }
 	   });
     // gettign the patient name
@@ -44,7 +44,7 @@ export class AppComponent {
       // call the method to remove the data
       this._sharedService.emitChange(false);
       this.authenticationService.logout();
-      this.userName = null;
+      this.username = null;
       this.patient = null;
   }
 

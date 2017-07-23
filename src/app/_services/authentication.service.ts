@@ -17,7 +17,11 @@ export class AuthenticationService {
     // login service
      public login(docterDto: DocterDTO): Observable<any> { 
        // for now just used the body
-       return this.http.post(this.configService.getlogin_url, docterDto).
+       
+       const body = `username=${docterDto.username}&password=${docterDto.password}`;
+       const headers = new Headers();
+       headers.append('Content-Type', 'application/x-www-form-urlencoded');
+       return this.http.post(this.configService.getlogin_url, body, headers).
         map((response: Response) => {
             console.log(response);
             let user = response.json();
