@@ -8,13 +8,13 @@
         </div>
         <div class="col-sm-2">
             <button class="btn btn-primary" [routerLink]="['/add-Patient']">New Patient</button>
-            <button class="btn btn-danger">Print Page</button>
+            <!-- <button class="btn btn-danger" (click)="print()">Print Page</button> -->
         </div>
     </div>
     <br>
-    <div class="row-fluid">
+    <div class="row-fluid" >
         
-            <ng-table class="sortable" 
+            <ng-table id="print-section" class="sortable" 
                       [config]="config" (tableChanged)="onChangeTable(config)" 
                       (cellClicked)="onCellClick($event)" 
                       [rows]="rows" 

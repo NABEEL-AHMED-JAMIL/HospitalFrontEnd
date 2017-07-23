@@ -24,7 +24,7 @@ export class NoteService {
     }
     
     public deleteNote(id:Number): any {
-        return this.http.delete(this.configService.getdeleteNote_url)
+        return this.http.delete(this.configService.getdeleteNote_url+id)
             .map((response: Response) => {
                return response.json();
             });
