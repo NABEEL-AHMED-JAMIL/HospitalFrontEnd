@@ -10,69 +10,78 @@
         </div>
     </div>
     <br>
-    <div class="row" >
-        <div class="col-sm-10">
-             <label for="roles">Select Role</label><br>
-            <angular2-multiselect [data]="dropdownList"
-                    name="roles" [(ngModel)]="newDocter.roles" #roles="ngModel" 
-                    [settings]="dropdownSettings" ></angular2-multiselect>
-        </div>
-    </div>
-    <br>
-    <form name="newDoctorform" (ngSubmit)="f.form.valid && registerDoctor()" #f="ngForm" novalidate style="margin-right: 25px;"> 
-        
-          <!-- <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" name="email" [(ngModel)]="newDocter.email" 
-                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #email="ngModel" required />
-            <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
-        </div>  -->
-        <!--email ok-->
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" name="email" [(ngModel)]="newDocter.email" 
-                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #email="ngModel" required />
-            <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
-        </div>  
-        <!--first name ok-->
-         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !firstname.valid }">
-            <label for="firstname">First Name</label>
-            <input type="text" class="form-control" name="firstname" [(ngModel)]="newDocter.firstname" #firstname="ngModel" required />
-            <div *ngIf="f.submitted && !firstname.valid" class="help-block">First Name is required</div>
-        </div> 
-        <!-- last name ok-->
-         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !lastname.valid }">
-            <label for="lastname">Last Name</label>
-            <input type="text" class="form-control" name="lastname" [(ngModel)]="newDocter.lastname" #lastname="ngModel" required />
-            <div *ngIf="f.submitted && !lastname.valid" class="help-block">Last Name is required</div>
-        </div> 
-        <!-- user name ok-->
-         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-            <label for="username">UserName</label>
-            <input type="text" class="form-control" name="username" [(ngModel)]="newDocter.username" #username="ngModel" required />
-            <div *ngIf="f.submitted && !username.valid" class="help-block">UserName is required</div>
-        </div> 
-        <!-- pass word ok-->
-         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" name="password" [(ngModel)]="newDocter.password" #password="ngModel" required />
-            <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
-        </div> 
+    
+    <form #f="ngForm" novalidate (ngSubmit)="registerDoctor(f.value, f.valid)">
 
+         <div class="form-group"> 
+            <label for="roles">Select Role</label><br>
+            <angular2-multiselect [data]="dropdownList" name="roles" [(ngModel)]="newDocter.roles" #roles="ngModel" [settings]="dropdownSettings" >
+            </angular2-multiselect>
+         </div> 
+
+        <div class="form-group">
+            <label for="">Email</label>
+            <input type="email" class="form-control" name="email" [ngModel]="newDocterType.email"  #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" required >
+            <small [hidden]="email.valid || (email.pristine && !f.submitted)" class="text-danger">
+                Email is required and format should be <i>ballistic@gmail.com</i>.
+            </small>
+        </div>
+        
+        <div class="form-group">
+            <label for="firstname">First Name</label>
+            <input type="text" class="form-control" name="firstname" [(ngModel)]="newDocterType.firstname" #firstname="ngModel" required />
+            <small [hidden]="firstname.valid || (firstname.pristine && !f.submitted)" class="text-danger">
+                First Name is required
+            </small>
+        </div>
+        
+        <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input type="text" class="form-control" name="lastname" [(ngModel)]="newDocterType.lastname" #lastname="ngModel" required />
+            <small [hidden]="lastname.valid || (lastname.pristine && !f.submitted)" class="text-danger">
+                Last Name is required
+            </small>
+        </div> 
+        
+        <div class="form-group">
+            <label for="">Username</label>
+            <input type="text" class="form-control" name="username" [ngModel]="newDocterType.username"  #username="ngModel" required minlength="5" maxlength="25">
+            <small [hidden]="username.valid || (username.pristine && !f.submitted)" class="text-danger">
+                Username is required (minimum 5 characters).
+            </small>
+        </div>
+        <div class="form-group">
+            <label for="">Password</label>
+            <input type="password" class="form-control" name="password" [ngModel]="newDocterType.password" #password="ngModel" validateEqual="confirmPassword" reverse="true"  required minlength="5">
+            <small [hidden]="password.valid || (password.pristine && !f.submitted)" class="text-danger">
+                Password is required
+            </small>
+        </div>
+        
+        <div class="form-group">
+            <label for="">Retype password</label>
+            <input type="password" class="form-control" name="confirmPassword" [ngModel]="newDocterType.confirmPassword" #confirmPassword="ngModel" validateEqual="password" reverse="false" required >
+            <small [hidden]="confirmPassword.valid || (confirmPassword.pristine && !f.submitted)" class="text-danger">
+                Password mismatch
+            </small>
+        </div>
+        
         <!--doctor type ok -->
-         <div class="row">
+        <div class="row">
             <div class="col-sm-6">
-                 <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !doctorType.valid }">
-                     <label for="doctorType">Doctor Type</label>
-                     <select class="form-control" id="doctorType" [(ngModel)]="newDocter.doctorType" name="doctorType" #type="ngModel" required>
-                         <option *ngFor="let doctorType of allDoctorType" [value]="doctorType.id">{{doctorType.type}}</option>
+                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !doctorType.valid }">
+                    <label for="doctorType">Doctor Type</label>
+                    <select class="form-control" id="doctorType" [(ngModel)]="newDocter.doctorType" name="doctorType" #doctorType="ngModel" required>
+                        <option *ngFor="let doctorType of allDoctorType" [value]="doctorType">{{doctorType.type}}</option>
                     </select>
-                    <div *ngIf="f.submitted && !type.valid" class="help-block">Type is required</div>
+                    <div *ngIf="f.submitted && !doctorType.valid" class="help-block">
+                        Type is required
+                    </div>
                 </div>
             </div>
             <div class="col-sm-3" style="padding-top: 25px;"> 
                 <!--gender -->
-                 <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !gender.valid }">
+                <div class="form-group">
                     <label for="radio">Gender :</label>
                     <label>
                         <input type="radio" value="1" name="gender" id="gender" [(ngModel)]="newDocter.gender" required #gender="ngModel" checked>Male
@@ -80,28 +89,28 @@
                     <label>
                         <input type="radio" value="0" name="gender" id="gender" [(ngModel)]="newDocter.gender" required #gender="ngModel"> Female
                     </label>
-                    <div *ngIf="f.submitted && !gender.valid" class="help-block">Type is required</div>
                 </div>  
             </div>
-            <!-- <div class="col-sm-3" style="padding-top: 25px;"> 
+            <div class="col-sm-3" style="padding-top: 25px;">
                 <div class="form-group">
-                    <span class="checkboxtext" > User Active or Not 
+                    <span class="checkboxtext" > User Active or Not
                         <input type="checkbox" style="margin-left: 20px;" name="active" [(ngModel)]="newDocter.active" #active="ngModel" checked />
                     </span>
                 </div>
-            </div> -->
+            </div> 
         </div>
-          
-            
-        <div class="form-group text-right" >
+        <div class="form-group text-right">
             <br>
-            <button [disabled]="loading" class="btn btn-primary">Register</button>
+            <button [disabled]="loading" type="submit" class="btn btn-primary" [disabled]="!f.form.valid">Register</button>
             <img *ngIf="loading" [src]="image" />
             <a [routerLink]="['/home']" class="btn btn-link">Cancel</a>
         </div>
-    </form>
-</div> 
- 
+        <div class="margin-20" *ngIf="f">
+            <div>Form details:-</div>
+            <pre>Your Important Info: <br>{{f.value | json}}</pre>
+        </div>
+  </form>
+</div>
 
 
 <!--new doc-type-->
@@ -114,7 +123,7 @@
     </div>
     <form name="formDoctorType" (ngSubmit)="f.form.valid && registerDoctorType()" #f="ngForm" novalidate style="margin-right: 25px;">
         <!--type ok-->
-         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !type.valid }">
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !type.valid }">
             <label for="type">Doctor Type</label>
             <input type="text" class="form-control" name="type" [(ngModel)]="newDocterType.dtype" #type="ngModel" required />
             <div *ngIf="f.submitted && !type.valid" class="help-block">Docter Type required</div>
@@ -126,3 +135,7 @@
         </div>
     </form>
 </div>
+
+<br>
+<br>
+

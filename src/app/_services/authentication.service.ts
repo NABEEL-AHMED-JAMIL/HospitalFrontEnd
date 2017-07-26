@@ -5,7 +5,6 @@ import 'rxjs/add/operator/map'
 //----------------Service------------------------------
 import { ConfigService } from './config.service';
 //-------------Model-----------------------------------
-import { DocterDTO } from '../_models/index';
 
 
 @Injectable()
@@ -15,10 +14,10 @@ export class AuthenticationService {
     constructor(private configService: ConfigService, private http: Http) { }
 
     // login service
-     public login(docterDto: DocterDTO): Observable<any> { 
+     public login(loginDto: any): Observable<any> { 
        // for now just used the body
        
-       const body = `username=${docterDto.username}&password=${docterDto.password}`;
+       const body = `username=${loginDto.username}&password=${loginDto.password}`;
        const headers = new Headers();
        headers.append('Content-Type', 'application/x-www-form-urlencoded');
        return this.http.post(this.configService.getlogin_url, body, headers).

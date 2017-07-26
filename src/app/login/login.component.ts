@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
     public hide: Boolean = true;
     // form used
-    public docterDTO: any = {};
+    public loginDto: any = {};
     // form used
     public forgotPassword: any = {};
     
@@ -50,9 +50,9 @@ export class LoginComponent implements OnInit {
     }
     
     public login(): any{
-        console.log(this.docterDTO);
+        console.log(this.loginDto);
          this.loadinglogin = true;
-         this.authenticationService.login(this.docterDTO)
+         this.authenticationService.login(this.loginDto)
             .subscribe(
                 data => {
                     this.loadinglogin = false;

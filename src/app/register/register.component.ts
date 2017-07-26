@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { AlertService,DoctorTypeService,
         DoctorService,UtilService,
         RoleService } from '../_services/index';
-import { DoctorType, Doctor, Role } from '../_models/index';
+import { DoctorType, DoctorDTO , Role } from '../_models/index';
+
 
 
 @Component({
@@ -21,34 +22,40 @@ export class RegisterComponent implements OnInit{
     private allDoctorType :Array<DoctorType>;
     //private roles: Array<Role> = [];
     private newDocterType: any = {} ;
-    private newDocter: any = {};
-    private dropdownList: any = [];
-    private dropdownSettings: any = {};
-    // 
-    constructor(
-        private router: Router,
-        private doctorTypeService: DoctorTypeService,
-        private alertService: AlertService,
-        private doctorService:DoctorService,
-        private utilService:UtilService, private roleService: RoleService) {
+    private newDoctor: DoctorDTO;
+    // dropdown list
+    private dropdownList: any = [ 
+        {"id":1,"itemName":"ADMIN"},
+        {"id":2,"itemName":"USER"},
+        {"id":3,"itemName":"DBA"} ];
 
-        }
+    private dropdownSettings: any = { 
+        singleSelection: false,
+        text:"Select Role's",
+        selectAllText:'Select All',
+        unSelectAllText:'UnSelect All',
+        enableSearchFilter: true,
+        classes:"myclass custom-class"
+    };
+
+
+    constructor(private router: Router, private doctorTypeService: DoctorTypeService, private alertService: AlertService,
+        private doctorService:DoctorService, private utilService:UtilService, private roleService: RoleService) {}
 
     public ngOnInit(){
+        
         this.image = this.utilService.getCircalImage();
         this.loadAllDoctorType();
-        //this.laodAllRoll();
-        this.dropdownList = [ {"id":1,"itemName":"ADMIN"},{"id":2,"itemName":"USER"},{"id":3,"itemName":"DBA"} ];
-        this.dropdownSettings = { singleSelection: false, text:"Select Role's", selectAllText:'Select All',
-                                  unSelectAllText:'UnSelect All', enableSearchFilter: true, classes:"myclass custom-class"
-                                };            
+        this.newDoctor = {
+            email: '', username:  '', password: '', firstname: '', lastname: '',
+            gender: true, active: true, roles: [] , doctorType: 2
+        }
     }
-
-
-    public registerDoctor() {
-        console.log(this.newDocter);
+    
+    private registerDoctor(newDocter: DoctorDTO, isValid: boolean) {
+        // call API to save customer
         this.loading = true;
-        this.doctorService.create(this.newDocter)
+        this.doctorService.create(this.newDoctor)
             .subscribe( data => {
                 console.log(data);
                 this.alertService.success('Registration successful', true);
@@ -59,7 +66,7 @@ export class RegisterComponent implements OnInit{
             });
     }
 
-    // ok method
+
     private loadAllDoctorType() { 
          this.doctorTypeService.getAllDoctorType().
            subscribe(allDoctorType => { 
@@ -67,14 +74,6 @@ export class RegisterComponent implements OnInit{
             }, error => {}); 
     }
 
-    // // ok method
-    // private laodAllRoll() {
-    //     this.roleService.getRole().subscribe( roles => {
-    //         this.roles = roles;
-    //     }, error => {});
-    // }
-
-    // ok method
     public registerDoctorType(){
         console.log("Event press");   
         console.log(this.newDocterType.dtype);
@@ -86,7 +85,7 @@ export class RegisterComponent implements OnInit{
             });
     }
 
-    // ok method
+    
     public show:boolean = true; 
     public showhide(){
         if(this.show){
@@ -95,24 +94,5 @@ export class RegisterComponent implements OnInit{
             this.show = true;
         }
     }
-
-        // (onSelect)="onItemSelect($event)" 
-    //             (onDeSelect)="OnItemDeSelect($event)"
-    //             (onSelectAll)="onSelectAll($event)"
-    //             (onDeSelectAll)="onDeSelectAll($event)"
-    // public onItemSelect(item:any): any{
-    //     console.log(item);
-    //     console.log(this.selectedItems);
-    // }
-    // public OnItemDeSelect(item:any): any{
-    //     console.log(item);
-    //     console.log(this.selectedItems);
-    // }
-    // public onSelectAll(items: any): any{
-    //     console.log(items);
-    // }
-    // public onDeSelectAll(items: any): any{
-    //     console.log(items);
-    // }
 
 }

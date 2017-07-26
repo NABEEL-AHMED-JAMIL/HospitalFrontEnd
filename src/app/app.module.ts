@@ -21,7 +21,7 @@ import { AlertComponent } from './_directives/index';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
-import {RegisterComponent} from './register/index';
+import {RegisterComponent , EqualValidator} from './register/index';
 import {AddNote} from './addNote/index';
 import { CDialogComponent } from './_dialog_box/index';
 import { AddPatient } from './addPatient/index';
@@ -48,8 +48,8 @@ import { SharedService, AlertService, AuthenticationService,
     NgTableComponent, 
     NgTableFilteringDirective,
     NgTablePagingDirective, 
-    NgTableSortingDirective
-    
+    NgTableSortingDirective,
+    EqualValidator
   ],
   imports: [
     AngularMultiSelectModule,

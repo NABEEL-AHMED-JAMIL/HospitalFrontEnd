@@ -4,7 +4,7 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { ConfigService } from './config.service';
 //-------------Routing---------------------------------
 //-------------Model-----------------------------------
-import { Doctor } from '../_models/index';
+import { DoctorDTO } from '../_models/index';
 //-------------Module----------------------------------
 //------------Component--------------------------------
 
@@ -15,9 +15,9 @@ export class DoctorService {
 
     constructor(private http: Http, private configService: ConfigService) { }
     
-    public create(doctor: Doctor): any{
+    public create(doctorDTO: DoctorDTO): any{
         // , this.jwt()
-        return this.http.post(this.configService.getregister_url, doctor)
+        return this.http.post(this.configService.getregister_url, doctorDTO)
             .map((response: Response) => {
                return response.json();
             });
