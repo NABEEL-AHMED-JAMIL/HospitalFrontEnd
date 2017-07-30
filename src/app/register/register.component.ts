@@ -1,15 +1,12 @@
 import { Component , OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertService,DoctorTypeService,
-        DoctorService,UtilService,
-        RoleService } from '../_services/index';
+import { AlertService, DoctorTypeService, DoctorService,
+    UtilService, RoleService } from '../_services/index';
 import { DoctorType, DoctorDTO , Role } from '../_models/index';
-
-
 
 @Component({
     moduleId: module.id,
-    selector: 'register',
+    selector: 'app-register',
     templateUrl: 'register.component.html',
     styleUrls: ['register.component.css']
 })
@@ -17,82 +14,75 @@ import { DoctorType, DoctorDTO , Role } from '../_models/index';
 
 export class RegisterComponent implements OnInit{
 
-    private loading:boolean = false;
+    private loading: Boolean = false;
     private image: String;
-    private allDoctorType :Array<DoctorType>;
-    //private roles: Array<Role> = [];
+    private allDoctorType: Array<DoctorType>;
     private newDocterType: any = {} ;
-    private newDoctor: DoctorDTO;
+    public newDocter: DoctorDTO;
+    public show: Boolean = true;
     // dropdown list
-    private dropdownList: any = [ 
-        {"id":1,"itemName":"ADMIN"},
-        {"id":2,"itemName":"USER"},
-        {"id":3,"itemName":"DBA"} ];
+    private dropdownList: any = [ {'id': 1, 'itemName': 'ADMIN'}, {'id': 2, 'itemName': 'USER'}, {'id': 3, 'itemName': 'DBA'} ];
 
-    private dropdownSettings: any = { 
+    private dropdownSettings: any = {
         singleSelection: false,
-        text:"Select Role's",
-        selectAllText:'Select All',
-        unSelectAllText:'UnSelect All',
+        text: 'Select Role`s',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
         enableSearchFilter: true,
-        classes:"myclass custom-class"
+        classes: 'myclass custom-class'
     };
 
 
     constructor(private router: Router, private doctorTypeService: DoctorTypeService, private alertService: AlertService,
-        private doctorService:DoctorService, private utilService:UtilService, private roleService: RoleService) {}
+        private doctorService: DoctorService, private utilService: UtilService, private roleService: RoleService) {}
 
-    public ngOnInit(){
-        
+    ngOnInit() {
         this.image = this.utilService.getCircalImage();
         this.loadAllDoctorType();
-        this.newDoctor = {
-            email: '', username:  '', password: '', firstname: '', lastname: '',
-            gender: true, active: true, roles: [] , doctorType: 2
-        }
+        this.newDocter = {
+            email: 'nabeel@gmail.com', username: 'Ballistic', password: 'PAss', confirmPassword: 'PAss',
+            firstname: 'dfs', lastname: 'sdfs', gender: true, active: true,
+            roles: [{'id': 1, 'itemName': 'ADMIN'}], doctorType: 2 };
+        console.log(this.newDocterType);
     }
-    
+
     private registerDoctor(newDocter: DoctorDTO, isValid: boolean) {
-        // call API to save customer
+
         this.loading = true;
-        this.doctorService.create(this.newDoctor)
+        this.doctorService.create(this.newDocter)
             .subscribe( data => {
                 console.log(data);
                 this.alertService.success('Registration successful', true);
                 this.router.navigate(['/home']);
-            },error => {        
-                this.alertService.error("User Name Already Taken");
+            }, error => {
+                this.alertService.error('User Name Already Taken');
                 this.loading = false;
             });
     }
 
+    private loadAllDoctorType() {
 
-    private loadAllDoctorType() { 
          this.doctorTypeService.getAllDoctorType().
-           subscribe(allDoctorType => { 
-             this.allDoctorType = allDoctorType.filter((item:any) => { return  !"ALL".match(item.type) ; });
-            }, error => {}); 
+           subscribe(allDoctorType => { this.allDoctorType = allDoctorType.filter((item: any) => { return  !'ALL'.match(item.type) ; });
+            }, error => {});
     }
 
-    public registerDoctorType(){
-        console.log("Event press");   
-        console.log(this.newDocterType.dtype);
+    public showhide() {
+        if (this.show) {
+            this.show = false;
+        }else {
+            this.show = true;
+        }
+    }
+
+    public save(model: DoctorDTO, isValid: boolean) {
+        console.log(model, isValid);
+        console.log('Event press');
         this.doctorTypeService.createNewDoctorType(this.newDocterType.dtype)
             .subscribe( data => {
                  this.alertService.success('Successful New Type');
             }, error => {
                  this.alertService.error('Already Type Exist');
-            });
+        });
     }
-
-    
-    public show:boolean = true; 
-    public showhide(){
-        if(this.show){
-            this.show = false;
-        }else{
-            this.show = true;
-        }
-    }
-
 }

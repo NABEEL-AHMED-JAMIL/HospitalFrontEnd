@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-//----------------Service------------------------------
-import { SharedService, AlertService, AuthenticationService, UtilService  } from '../_services/index';
-//-------------Routing---------------------------------
+// ----------------Service------------------------------
+import { SharedService, AlertService, AuthenticationService,
+    UtilService  } from '../_services/index';
+// -------------Routing---------------------------------
 import { Router, ActivatedRoute } from '@angular/router';
-//------------Component--------------------------------
-import { AppComponent } from "../app.component";
+// ------------Component--------------------------------
+import { AppComponent } from '../app.component';
 
 
 @Component({
-    selector: 'login',
+
+    selector: 'app-login',
     templateUrl: 'login.component.html'
-      
 })
 
 
@@ -22,14 +23,11 @@ export class LoginComponent implements OnInit {
     public loginDto: any = {};
     // form used
     public forgotPassword: any = {};
-    
     public loadinglogin = false;
     public loadingForgot = false;
     public image: String;
     public returnUrl: string;
 
-    
-    
     constructor(
         private route: ActivatedRoute,
         private router: Router,
@@ -48,7 +46,7 @@ export class LoginComponent implements OnInit {
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
-    
+
     public login(): any{
         console.log(this.loginDto);
          this.loadinglogin = true;
@@ -59,7 +57,7 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    this.alertService.error("Wrong Password And User Name");
+                    this.alertService.error('Wrong Password And User Name');
                     this.loadinglogin = false;
                 });
      }
@@ -70,22 +68,22 @@ export class LoginComponent implements OnInit {
          this.authenticationService.forGotPassWord(this.forgotPassword.email)
             .subscribe(
                 data => {
-                    console.log("data "+data);
-                    this.alertService.success("Check Your Email");
+                    console.log('data ' + data);
+                    this.alertService.success('Check Your Email');
                     this.loadingForgot = false;
                 },
                 error => {
-                    console.log("error "+error)
-                    this.alertService.error("Invalide Email!");
+                    console.log('error ' + error);
+                    this.alertService.error('Invalide Email!');
                     this.loadingForgot = false;
-                });
-         
+                }
+            );
      }
 
-     public hideShow(): any{
-         if(this.hide){
+     public hideShow(): any {
+         if (this.hide){
              this.hide = false;
-         }else{
+         }else {
              this.hide = true;
          }
      }

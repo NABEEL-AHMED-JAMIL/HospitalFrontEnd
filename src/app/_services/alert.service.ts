@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs/Subject';
-//-------------Routing---------------------------------
+// -------------Routing---------------------------------
 import { Router, NavigationStart } from '@angular/router';
 
 
@@ -22,17 +22,17 @@ export class AlertService {
             }
         });
     }
-    
+
     public success(message: string, keepAfterNavigationChange = false): any {
         this.keepAfterNavigationChange = keepAfterNavigationChange;
         this.subject.next({ type: 'success', text: message });
     }
-    
+
     public error(message: string, keepAfterNavigationChange = false): any {
         this.keepAfterNavigationChange = keepAfterNavigationChange;
         this.subject.next({ type: 'error', text: message });
     }
-    
+
     public getMessage(): Observable<any> {
         return this.subject.asObservable();
     }

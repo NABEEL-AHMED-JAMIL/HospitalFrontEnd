@@ -16,7 +16,7 @@ export class PatientService {
     constructor(private http: Http, private configService: ConfigService) { }
 
     // new patient
-    public newPatient(patient:Patient) {
+    public newPatient(patient: Patient) {
         return this.http.post(this.configService.getnewPatient_url, patient);
     }
 
@@ -28,30 +28,29 @@ export class PatientService {
             });
     }
 
-    public getAllPatientNote(mrNo:Number): any {
-        return this.http.get(this.configService.getAllPatientNote_url+mrNo)
-            .map((response:Response) => {
+    public getAllPatientNote(mrNo: Number): any {
+        return this.http.get(this.configService.getAllPatientNote_url + mrNo)
+            .map((response: Response) => {
                 return response.json();
             });
     }
 
-    public getPatient(mrNo:Number): any {
-        return this.http.get(this.configService.getpatient_url+mrNo)
-            .map((response:Response) => {
+    public getPatient(mrNo: Number): any {
+        return this.http.get(this.configService.getpatient_url + mrNo)
+            .map((response: Response) => {
                 return response.json();
             });
     }
 
-    public deletePatient(mrNo:Number): any {
-        return this.http.delete(this.configService.getdeletePatient_url+mrNo);
+    public deletePatient(mrNo: Number): any {
+        return this.http.delete(this.configService.getdeletePatient_url + mrNo);
     }
 
-    public updatePatient(patient:Patient): any {
-        return this.http.post(this.configService.getupdatePatient_url+patient.mrNo, JSON.stringify(patient))
-            .map((response: Response) => { 
+    public updatePatient(patient: Patient): any {
+        return this.http.post(this.configService.getupdatePatient_url + patient.mrNo, JSON.stringify(patient))
+            .map((response: Response) => {
               return response.json();
             });
     }
 
-    
 }

@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
-//----------------Service------------------------------
+// ----------------Service------------------------------
 import { ConfigService } from './config.service';
-//-------------Routing---------------------------------
-//-------------Model-----------------------------------
+// -------------Model-----------------------------------
 import { DoctorDTO } from '../_models/index';
-//-------------Module----------------------------------
-//------------Component--------------------------------
 
 
 
@@ -14,7 +11,7 @@ import { DoctorDTO } from '../_models/index';
 export class DoctorService {
 
     constructor(private http: Http, private configService: ConfigService) { }
-    
+
     public create(doctorDTO: DoctorDTO): any{
         // , this.jwt()
         return this.http.post(this.configService.getregister_url, doctorDTO)

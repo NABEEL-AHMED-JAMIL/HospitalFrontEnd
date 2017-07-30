@@ -10,109 +10,103 @@
         </div>
     </div>
     <br>
-    
-    <form #f="ngForm" novalidate (ngSubmit)="registerDoctor(f.value, f.valid)">
 
-         <div class="form-group"> 
-            <label for="roles">Select Role</label><br>
-            <angular2-multiselect [data]="dropdownList" name="roles" [(ngModel)]="newDocter.roles" #roles="ngModel" [settings]="dropdownSettings" >
-            </angular2-multiselect>
-         </div> 
 
-        <div class="form-group">
-            <label for="">Email</label>
-            <input type="email" class="form-control" name="email" [ngModel]="newDocterType.email"  #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" required >
-            <small [hidden]="email.valid || (email.pristine && !f.submitted)" class="text-danger">
-                Email is required and format should be <i>ballistic@gmail.com</i>.
-            </small>
-        </div>
-        
-        <div class="form-group">
-            <label for="firstname">First Name</label>
-            <input type="text" class="form-control" name="firstname" [(ngModel)]="newDocterType.firstname" #firstname="ngModel" required />
-            <small [hidden]="firstname.valid || (firstname.pristine && !f.submitted)" class="text-danger">
-                First Name is required
-            </small>
-        </div>
-        
-        <div class="form-group">
-            <label for="lastname">Last Name</label>
-            <input type="text" class="form-control" name="lastname" [(ngModel)]="newDocterType.lastname" #lastname="ngModel" required />
-            <small [hidden]="lastname.valid || (lastname.pristine && !f.submitted)" class="text-danger">
-                Last Name is required
-            </small>
-        </div> 
-        
-        <div class="form-group">
-            <label for="">Username</label>
-            <input type="text" class="form-control" name="username" [ngModel]="newDocterType.username"  #username="ngModel" required minlength="5" maxlength="25">
-            <small [hidden]="username.valid || (username.pristine && !f.submitted)" class="text-danger">
-                Username is required (minimum 5 characters).
-            </small>
-        </div>
-        <div class="form-group">
-            <label for="">Password</label>
-            <input type="password" class="form-control" name="password" [ngModel]="newDocterType.password" #password="ngModel" validateEqual="confirmPassword" reverse="true"  required minlength="5">
-            <small [hidden]="password.valid || (password.pristine && !f.submitted)" class="text-danger">
-                Password is required
-            </small>
-        </div>
-        
-        <div class="form-group">
-            <label for="">Retype password</label>
-            <input type="password" class="form-control" name="confirmPassword" [ngModel]="newDocterType.confirmPassword" #confirmPassword="ngModel" validateEqual="password" reverse="false" required >
-            <small [hidden]="confirmPassword.valid || (confirmPassword.pristine && !f.submitted)" class="text-danger">
-                Password mismatch
-            </small>
-        </div>
-        
-        <!--doctor type ok -->
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !doctorType.valid }">
-                    <label for="doctorType">Doctor Type</label>
-                    <select class="form-control" id="doctorType" [(ngModel)]="newDocter.doctorType" name="doctorType" #doctorType="ngModel" required>
-                        <option *ngFor="let doctorType of allDoctorType" [value]="doctorType">{{doctorType.type}}</option>
-                    </select>
-                    <div *ngIf="f.submitted && !doctorType.valid" class="help-block">
-                        Type is required
+    <div class="container">
+        <form #f="ngForm" novalidate (ngSubmit)="save(f.value, f.valid)">
+            <div class="form-group"> 
+                <label for="roles">Select Role</label><br>
+                <angular2-multiselect [data]="dropdownList" name="roles" [(ngModel)]="newDocter.roles" #roles="ngModel" [settings]="dropdownSettings" >
+                </angular2-multiselect>
+            </div>  
+
+            <div class="form-group">
+                <label for="">First Name</label>
+                <input type="text" class="form-control" name="firstname" [ngModel]="newDocter.firstname" required  #firstname="ngModel">
+                <small [hidden]="firstname.valid || (firstname.pristine && !f.submitted)" class="text-danger">
+                    First Name required
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="">Last Name</label>
+                <input type="text" class="form-control" name="lastname" [ngModel]="newDocter.lastname" required  #lastname="ngModel">
+                <small [hidden]="lastname.valid || (lastname.pristine && !f.submitted)" class="text-danger">
+                    Last Name required
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="">Email</label>
+                <input type="email" class="form-control" name="email" [ngModel]="newDocter.email" 
+                    required  #email="ngModel" pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$">
+                <small [hidden]="email.valid || (email.pristine && !f.submitted)" class="text-danger">
+                    Email is required and format should be <i>john@doe.com</i>.
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="">Username</label>
+                <input type="text" class="form-control" name="username" [ngModel]="newDocter.username" 
+                    required minlength="5" maxlength="8" #username="ngModel">
+                <small [hidden]="username.valid || (username.pristine && !f.submitted)" class="text-danger">
+                    Username is required (minimum 5 characters).
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="">Password</label>
+                <input type="password" class="form-control" name="password" [ngModel]="newDocter.password" 
+                    required validateEqual="confirmPassword" reverse="true" #password="ngModel">
+                <small [hidden]="password.valid || (password.pristine && !f.submitted)" class="text-danger">
+                    Password is required
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="">Retype password</label>
+                <input type="password" class="form-control" name="confirmPassword" [ngModel]="newDocter.confirmPassword" 
+                    required validateEqual="password" reverse="false" #confirmPassword="ngModel">
+                <small [hidden]="confirmPassword.valid || (confirmPassword.pristine && !f.submitted)" class="text-danger">
+                    Password mismatch
+                </small>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !doctorType.valid }">
+                        <label for="doctorType">Doctor Type</label>
+                        <select class="form-control" id="doctorType" [(ngModel)]="newDocter.doctorType" name="doctorType" #doctorType="ngModel" required>
+                            <option *ngFor="let doctorType of allDoctorType" [value]="doctorType">{{doctorType.type}}</option>
+                        </select>
+                        <div *ngIf="f.submitted && !doctorType.valid" class="help-block">
+                            Type is required
+                        </div>
                     </div>
+                </div> 
+                <div class="col-sm-3" style="padding-top: 25px;"> 
+                    <div class="form-group">
+                        <label for="radio">Gender :</label>
+                        <label>
+                            <input type="radio" value="1" name="gender" id="gender" [(ngModel)]="newDocter.gender" required #gender="ngModel" checked>Male
+                        </label>
+                        <label>
+                            <input type="radio" value="0" name="gender" id="gender" [(ngModel)]="newDocter.gender" required #gender="ngModel"> Female
+                        </label>
+                    </div>  
                 </div>
+                <div class="col-sm-3" style="padding-top: 25px;">
+                    <div class="form-group">
+                        <span class="checkboxtext" > User Active or Not
+                            <input type="checkbox" style="margin-left: 20px;" name="active" [(ngModel)]="newDocter.active" #active="ngModel" checked />
+                        </span>
+                    </div>
+                </div> 
             </div>
-            <div class="col-sm-3" style="padding-top: 25px;"> 
-                <!--gender -->
-                <div class="form-group">
-                    <label for="radio">Gender :</label>
-                    <label>
-                        <input type="radio" value="1" name="gender" id="gender" [(ngModel)]="newDocter.gender" required #gender="ngModel" checked>Male
-                    </label>
-                    <label>
-                        <input type="radio" value="0" name="gender" id="gender" [(ngModel)]="newDocter.gender" required #gender="ngModel"> Female
-                    </label>
-                </div>  
+            <div class="form-group text-right">
+                <br>
+                <button [disabled]="loading" type="submit" class="btn btn-primary" >Register</button>
+                <img *ngIf="loading" [src]="image" />
+                <a [routerLink]="['/home']" class="btn btn-link">Cancel</a>
             </div>
-            <div class="col-sm-3" style="padding-top: 25px;">
-                <div class="form-group">
-                    <span class="checkboxtext" > User Active or Not
-                        <input type="checkbox" style="margin-left: 20px;" name="active" [(ngModel)]="newDocter.active" #active="ngModel" checked />
-                    </span>
-                </div>
-            </div> 
-        </div>
-        <div class="form-group text-right">
-            <br>
-            <button [disabled]="loading" type="submit" class="btn btn-primary" [disabled]="!f.form.valid">Register</button>
-            <img *ngIf="loading" [src]="image" />
-            <a [routerLink]="['/home']" class="btn btn-link">Cancel</a>
-        </div>
-        <div class="margin-20" *ngIf="f">
-            <div>Form details:-</div>
-            <pre>Your Important Info: <br>{{f.value | json}}</pre>
-        </div>
-  </form>
+    </form>
+    </div>
 </div>
-
-
+<!--  -->
 <!--new doc-type-->
 <div class="container" *ngIf="!show">
     <div class="row">
@@ -138,4 +132,3 @@
 
 <br>
 <br>
-

@@ -1,6 +1,6 @@
 export class DoctorType{
-    
-    id :Number;
+
+    id: Number;
     type: String;
-    
+
 }
