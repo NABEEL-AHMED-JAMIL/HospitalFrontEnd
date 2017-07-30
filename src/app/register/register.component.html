@@ -13,7 +13,7 @@
 
 
     <div class="container">
-        <form #f="ngForm" novalidate (ngSubmit)="save(f.value, f.valid)">
+        <form #f="ngForm" novalidate (ngSubmit)="registerDoctor(f.value, f.valid)">
             <div class="form-group"> 
                 <label for="roles">Select Role</label><br>
                 <angular2-multiselect [data]="dropdownList" name="roles" [(ngModel)]="newDocter.roles" #roles="ngModel" [settings]="dropdownSettings" >
@@ -71,7 +71,7 @@
                     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !doctorType.valid }">
                         <label for="doctorType">Doctor Type</label>
                         <select class="form-control" id="doctorType" [(ngModel)]="newDocter.doctorType" name="doctorType" #doctorType="ngModel" required>
-                            <option *ngFor="let doctorType of allDoctorType" [value]="doctorType">{{doctorType.type}}</option>
+                            <option *ngFor="let doctorType of allDoctorType" [value]="doctorType.id">{{doctorType.type}}</option>
                         </select>
                         <div *ngIf="f.submitted && !doctorType.valid" class="help-block">
                             Type is required
@@ -81,12 +81,10 @@
                 <div class="col-sm-3" style="padding-top: 25px;"> 
                     <div class="form-group">
                         <label for="radio">Gender :</label>
-                        <label>
-                            <input type="radio" value="1" name="gender" id="gender" [(ngModel)]="newDocter.gender" required #gender="ngModel" checked>Male
-                        </label>
-                        <label>
-                            <input type="radio" value="0" name="gender" id="gender" [(ngModel)]="newDocter.gender" required #gender="ngModel"> Female
-                        </label>
+                        <input style="width: 25px; height: 25px"  type="radio" value="true" name="gender" id="gender" [(ngModel)]="newDocter.gender" required>
+                        <label style="margin-left: 5px; margin-top: 2px;"> Male </label>
+                        <input style="width: 25px; height: 25px" type="radio" value="false" name="gender" id="gender" [(ngModel)]="newDocter.gender">
+                        <label style="margin-left: 5px; margin-top: 2px;"> Female </label>
                     </div>  
                 </div>
                 <div class="col-sm-3" style="padding-top: 25px;">

@@ -17,7 +17,7 @@ import { CDialogComponent } from '../_dialog_box/index';
 
 
 export class HomeComponent  implements OnInit {
-    // table configuration 
+    // table configuration
     public page: Number = 1;
     public itemsPerPage: Number = 10;
     public maxSize: Number = 5;

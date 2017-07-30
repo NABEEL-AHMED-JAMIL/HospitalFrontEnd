@@ -17,6 +17,10 @@ export class ConfigService {
     private _register_url = this._api_url  +  '/register';
     // forgotPassword
     private _forgotPassword = this._api_url  +  this._auth_url  +  '/forgotPassword';
+    // fetchRestPassWordDetail
+    private _fetchRestPassWordDetail = this._api_url + this._auth_url + '/fetchRestPassWordDetail/';
+    // updatePassword
+    private _updatePassword = this._api_url + this._auth_url + '/updatePassword/';
     // get user role
     private _userRole = this._api_url  +  '/getRole';
 
@@ -57,6 +61,10 @@ export class ConfigService {
     public get getregister_url(): string { return this._register_url; }
 
     public get getforgotPassword_url(): string { return this._forgotPassword; }
+
+    public get getfetchRestPassWordDetail(): string { return this._fetchRestPassWordDetail; }
+
+    public get getupdatePassword(): string { return this._updatePassword; }
 
     public get getrefresh_token_url(): string { return this._refresh_token_url; }
 

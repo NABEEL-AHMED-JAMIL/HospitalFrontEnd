@@ -4,8 +4,8 @@ import { AlertService, DoctorTypeService, DoctorService,
     UtilService, RoleService } from '../_services/index';
 import { DoctorType, DoctorDTO , Role } from '../_models/index';
 
+
 @Component({
-    moduleId: module.id,
     selector: 'app-register',
     templateUrl: 'register.component.html',
     styleUrls: ['register.component.css']
@@ -32,7 +32,6 @@ export class RegisterComponent implements OnInit{
         classes: 'myclass custom-class'
     };
 
-
     constructor(private router: Router, private doctorTypeService: DoctorTypeService, private alertService: AlertService,
         private doctorService: DoctorService, private utilService: UtilService, private roleService: RoleService) {}
 
@@ -40,17 +39,17 @@ export class RegisterComponent implements OnInit{
         this.image = this.utilService.getCircalImage();
         this.loadAllDoctorType();
         this.newDocter = {
-            email: 'nabeel@gmail.com', username: 'Ballistic', password: 'PAss', confirmPassword: 'PAss',
-            firstname: 'dfs', lastname: 'sdfs', gender: true, active: true,
+            email: null, username: null, password: null, confirmPassword: null,
+            firstname: null, lastname: null, gender: null, active: true,
             roles: [{'id': 1, 'itemName': 'ADMIN'}], doctorType: 2 };
         console.log(this.newDocterType);
     }
 
     private registerDoctor(newDocter: DoctorDTO, isValid: boolean) {
-
-        this.loading = true;
-        this.doctorService.create(this.newDocter)
-            .subscribe( data => {
+        if (isValid) {
+            console.log(newDocter);
+            this.loading = true;
+            this.doctorService.create(newDocter).subscribe( data => {
                 console.log(data);
                 this.alertService.success('Registration successful', true);
                 this.router.navigate(['/home']);
@@ -58,12 +57,16 @@ export class RegisterComponent implements OnInit{
                 this.alertService.error('User Name Already Taken');
                 this.loading = false;
             });
+        }else {
+              this.alertService.error('Some Info Missing');
+        }
     }
 
     private loadAllDoctorType() {
-
-         this.doctorTypeService.getAllDoctorType().
-           subscribe(allDoctorType => { this.allDoctorType = allDoctorType.filter((item: any) => { return  !'ALL'.match(item.type) ; });
+         this.doctorTypeService.getAllDoctorType().subscribe(
+            data => {
+               this.allDoctorType = data.filter((item: any) => { return  !'ALL'.match(item.type);
+            });
             }, error => {});
     }
 
@@ -75,14 +78,13 @@ export class RegisterComponent implements OnInit{
         }
     }
 
-    public save(model: DoctorDTO, isValid: boolean) {
-        console.log(model, isValid);
-        console.log('Event press');
-        this.doctorTypeService.createNewDoctorType(this.newDocterType.dtype)
-            .subscribe( data => {
-                 this.alertService.success('Successful New Type');
+    public registerDoctorType() {
+        this.doctorTypeService.createNewDoctorType(this.newDocterType.dtype).subscribe(
+            data => {
+                console.log(data);
+                this.alertService.success('Successful New Doctor Type');
             }, error => {
-                 this.alertService.error('Already Type Exist');
-        });
+                 this.alertService.error('Already Exist');
+            });
     }
 }

@@ -10,6 +10,7 @@ export class AuthenticationService {
 
     csrfToken: string;
     private headers: Headers;
+
     constructor(private configService: ConfigService, private http: Http) {
         this.headers = new Headers();
         this.headers.append('Content-Type', 'application/x-www-form-urlencoded, application/json');
@@ -59,5 +60,21 @@ export class AuthenticationService {
             }
         }).catch(() => null);
         return promise;
+    }
+
+    public fetchRestPassWordDetail(id: Number): any {
+        console.log(id);
+         return this.http.get(this.configService.getfetchRestPassWordDetail + id)
+            .map((response: Response) => {
+                return response.json();
+        });
+    }
+
+    public updatePassword(id: Number, password: String){
+        console.log(id + ' and ' + password);
+        return this.http.put(this.configService.getupdatePassword + id, password)
+            .map((response: Response) => {
+                return response;
+        });
     }
 }

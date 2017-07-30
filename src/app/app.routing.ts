@@ -16,13 +16,13 @@ import { AuthGuard } from './_guards/index';
 const appRoutes: Routes = [
 
     { path: 'app-login', component: LoginComponent },
+    {path: 'app-forgot-password/:id', component: ForgotPasswordComponent },
     { path: 'app-register', component: RegisterComponent, canActivate: [AuthGuard]},
-    {path: 'app-forgot-password', component: ForgotPasswordComponent, canActivate: [AuthGuard] },
     {path: 'app-add-note', component: AddNoteComponent , canActivate: [AuthGuard]},
     { path: 'app-add-note/:mrNo', component: AddNoteComponent , canActivate: [AuthGuard]},
     { path: 'app-home', component: HomeComponent, canActivate: [AuthGuard]},
     {path: 'app-add-patient', component: AddPatientComponent , canActivate: [AuthGuard]},
-    { path: '**', redirectTo: '/app-home' }
+    { path: '**', redirectTo: '/app-login' }
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);
