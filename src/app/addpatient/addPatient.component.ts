@@ -13,11 +13,10 @@ import { Patient } from '../_models/patient';
 
     selector: 'app-add-patient',
     templateUrl: 'addPatient.component.html'
-
 })
 
 
-export class AddPatient implements OnInit {
+export class AddPatientComponent implements OnInit {
 
     public model: any = {};
     public image: String;

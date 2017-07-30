@@ -22,7 +22,7 @@ import { CDialogComponent } from '../_dialog_box/index';
 
 
 // tslint:disable-next-line:component-class-suffix
-export class AddNote implements OnInit{
+export class AddNoteComponent implements OnInit{
 
     // help for hide and show the button
     private hideDetal = true;

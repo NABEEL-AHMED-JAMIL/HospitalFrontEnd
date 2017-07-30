@@ -10,11 +10,14 @@ import { DoctorDTO } from '../_models/index';
 @Injectable()
 export class DoctorService {
 
-    constructor(private http: Http, private configService: ConfigService) { }
+    private token: any;
+
+    constructor(private http: Http, private configService: ConfigService) {
+        this.token = JSON.parse(localStorage.getItem('currentUser'));
+     }
 
     public create(doctorDTO: DoctorDTO): any{
-        // , this.jwt()
-        return this.http.post(this.configService.getregister_url, doctorDTO)
+        return this.http.post(this.configService.getregister_url, {body: doctorDTO, headers: this.token})
             .map((response: Response) => {
                return response.json();
             });

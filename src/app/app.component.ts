@@ -17,7 +17,7 @@ import {SharedService, AuthenticationService } from './_services/index';
 
 export class AppComponent {
 
-  private loginMessage: String =  'Login Plase!';
+  private loginMessage: String =  'Login Please!';
   private hide: Boolean = false;
   private currentDoctor: Doctor;
   private username: any;

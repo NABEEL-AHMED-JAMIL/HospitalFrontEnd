@@ -17,9 +17,10 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import {RegisterComponent , EqualValidator} from './register/index';
-import {AddNote} from './addNote/index';
+import { ForgotPasswordComponent } from './forgotpassword/index';
+import { AddNoteComponent } from './addNote/index';
 import { CDialogComponent } from './_dialog_box/index';
-import { AddPatient } from './addPatient/index';
+import { AddPatientComponent } from './addPatient/index';
 // ----------------Service-----------------------------
 import { AuthGuard } from './_guards/index';
 import { SharedService, AlertService, AuthenticationService, DoctorService,
@@ -27,9 +28,9 @@ import { SharedService, AlertService, AuthenticationService, DoctorService,
 } from './_services/index';
 
 
-// export function initUserFactory(authenticationService: AuthenticationService) {
-//     return () => authenticationService.initRefreshCall();
-// }
+export function initUserFactory(authenticationService: AuthenticationService) {
+    return () => authenticationService.initRefreshCall();
+}
 
 @NgModule({
   declarations: [
@@ -38,8 +39,9 @@ import { SharedService, AlertService, AuthenticationService, DoctorService,
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    AddNote,
-    AddPatient,
+    ForgotPasswordComponent,
+    AddNoteComponent,
+    AddPatientComponent,
     CDialogComponent,
     // Directive same like component....
     NgTableComponent,
@@ -64,12 +66,12 @@ import { SharedService, AlertService, AuthenticationService, DoctorService,
     AuthenticationService, DoctorService, NoteService,
     PatientService, DoctorTypeService, UtilService,
     ConfigService, RoleService,
-    // {
-    //   'provide': APP_INITIALIZER,
-    //   'useFactory': initUserFactory,
-    //   'deps': [AuthenticationService],
-    //   'multi': true
-    // }
+    {
+      'provide': APP_INITIALIZER,
+      'useFactory': initUserFactory,
+      'deps': [AuthenticationService],
+      'multi': true
+    }
   ],
   entryComponents: [
     CDialogComponent

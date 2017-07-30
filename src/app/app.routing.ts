@@ -6,23 +6,23 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import {RegisterComponent} from './register/index';
-import {AddNote} from './addNote/index';
-import { AddPatient } from './addPatient/index';
+import { ForgotPasswordComponent } from './forgotpassword/index';
+import {AddNoteComponent } from './addNote/index';
+import { AddPatientComponent } from './addPatient/index';
 // ----------------Service------------------------------
 import { AuthGuard } from './_guards/index';
 
 
 const appRoutes: Routes = [
 
-    { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent},
-    {path: 'addnote', component: AddNote , canActivate: [AuthGuard]},
-    { path: 'addnote/:mrNo', component: AddNote , canActivate: [AuthGuard]},
-    // canActivate: [AuthGuard]
-    {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-    {path: 'add-Patient', component: AddPatient , canActivate: [AuthGuard]},
-    { path: '**', redirectTo: '/home' }
+    { path: 'app-login', component: LoginComponent },
+    { path: 'app-register', component: RegisterComponent, canActivate: [AuthGuard]},
+    {path: 'app-forgot-password', component: ForgotPasswordComponent, canActivate: [AuthGuard] },
+    {path: 'app-add-note', component: AddNoteComponent , canActivate: [AuthGuard]},
+    { path: 'app-add-note/:mrNo', component: AddNoteComponent , canActivate: [AuthGuard]},
+    { path: 'app-home', component: HomeComponent, canActivate: [AuthGuard]},
+    {path: 'app-add-patient', component: AddPatientComponent , canActivate: [AuthGuard]},
+    { path: '**', redirectTo: '/app-home' }
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

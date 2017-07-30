@@ -41,8 +41,8 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
         this.image = this.utilService.getCircalImage();
         console.log(this.image);
-        // reset login status
-        this.authenticationService.logout();
+        // // reset login status
+        // this.authenticationService.logout();
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
@@ -55,14 +55,13 @@ export class LoginComponent implements OnInit {
                 data => {
                     this.loadinglogin = false;
                     this.router.navigate([this.returnUrl]);
-                },
-                error => {
+                }, error => {
                     this.alertService.error('Wrong Password And User Name');
                     this.loadinglogin = false;
                 });
      }
 
-     public send(): any{
+     public send(): any {
          this.loadingForgot = true;
          console.log(this.forgotPassword);
          this.authenticationService.forGotPassWord(this.forgotPassword.email)
@@ -81,7 +80,7 @@ export class LoginComponent implements OnInit {
      }
 
      public hideShow(): any {
-         if (this.hide){
+         if (this.hide) {
              this.hide = false;
          }else {
              this.hide = true;
