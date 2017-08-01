@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { Http, Headers, Response, RequestOptions, RequestMethod  } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 // ----------------Service------------------------------
@@ -12,17 +12,23 @@ export class AuthenticationService {
     private headers: Headers;
 
     constructor(private configService: ConfigService, private http: Http) {
-        this.headers = new Headers();
-        this.headers.append('Content-Type', 'application/x-www-form-urlencoded, application/json');
-        this.headers.append('Accept', 'application/json');
-        this.headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PUT');
-        this.headers.append('Access-Control-Max-Age', '3600');
-        this.headers.append('Access-Control-Allow-Headers', 'X-Requested-With,content-type, authorization ');
      }
+
+     private serializeObj(obj) {
+         var result = [];
+         for (var property in obj)
+            result.push(encodeURIComponent(property) + "=" + encodeURIComponent(obj[property]));
+         return result.join("&");
+    }
 
      // login service
      public login(loginDto: any): Observable<any> {
-        return this.http.post(this.configService.getlogin_url, {body: loginDto, headers: this.headers , withCredentials: true})
+        
+        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+        let options = new RequestOptions( {method: RequestMethod.Post, headers: headers });
+        let body = this.serializeObj(loginDto);
+        //debugger;
+        return this.http.post(this.configService.getlogin_url, body,  options )
             .map((response: Response) => {
                 console.log(response);
                 const Uresponse = response.json();

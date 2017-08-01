@@ -8,7 +8,7 @@ export class ConfigService {
     private _api_url = 'http://localhost:8080';
     // login url
     private _auth_url = '/auth';
-    private _login_url = this._api_url  +  this._auth_url  +  '/login';
+    private _login_url =   this._auth_url  +  '/login';
     // refresh token
     private _refresh_token_url = this._api_url  +  this._auth_url  +  '/refresh';
     // logout url
