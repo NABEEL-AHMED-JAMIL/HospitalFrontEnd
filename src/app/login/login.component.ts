@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 // ----------------Service------------------------------
-import { SharedService, AlertService, AuthenticationService,
-    UtilService  } from '../_services/index';
+import { SharedService, AlertService, AuthenticationService, UtilService  } from '../_services/index';
 // -------------Routing---------------------------------
 import { Router, ActivatedRoute } from '@angular/router';
 // ------------Component--------------------------------
@@ -29,36 +28,29 @@ export class LoginComponent implements OnInit {
     public returnUrl: string;
 
     constructor(
-        private route: ActivatedRoute,
-        private router: Router,
-        private _sharedService: SharedService,
-        private authenticationService: AuthenticationService,
-        private alertService: AlertService,
+        private route: ActivatedRoute, private router: Router,private _sharedService: SharedService,
+        private authenticationService: AuthenticationService, private alertService: AlertService,
         private utilService: UtilService
        ) { }
 
 
     ngOnInit() {
         this.image = this.utilService.getCircalImage();
-        console.log(this.image);
-        // // reset login status
-        // this.authenticationService.logout();
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
     public login(): any{
-        console.log(this.loginDto);
          this.loadinglogin = true;
          this.authenticationService.login(this.loginDto)
             .subscribe(
                 data => {
                     this.loadinglogin = false;
-                    this.router.navigate([this.returnUrl]);
+                    this.router.navigate(['/app-home']);
+                     this.alertService.success('USER LOGIN');
                 }, error => {
                     this.alertService.error('Wrong Password And User Name');
                     this.loadinglogin = false;
-                });
+                }
+            );
      }
 
      public send(): any {

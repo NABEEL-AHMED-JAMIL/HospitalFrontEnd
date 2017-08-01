@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 // ----------------Service------------------------------
 import { ConfigService } from './config.service';
 
+
 @Injectable()
 export class AuthenticationService {
 
@@ -30,11 +31,13 @@ export class AuthenticationService {
         //debugger;
         return this.http.post(this.configService.getlogin_url, body,  options )
             .map((response: Response) => {
-                console.log(response);
-                const Uresponse = response.json();
-                if (Uresponse.access_token !== null) {
-                    localStorage.setItem('currentUser', JSON.stringify(Uresponse.doctor));
-                    localStorage.setItem('access_token' , JSON.stringify(response['access_token']));
+                const URESPONSE  = response.json();
+                if (URESPONSE.access_token !== null) {
+                    console.log("USER SAVE");
+                    localStorage.setItem('currentUser', JSON.stringify(URESPONSE.doctor));
+                    console.log(localStorage.getItem('currentUser'));
+                    localStorage.setItem('access_token' , JSON.stringify(URESPONSE.access_token));
+                    console.log(localStorage.getItem('access_token'));
                 }
             return response.json();
         });
@@ -54,11 +57,12 @@ export class AuthenticationService {
         const promise = this.http.get(
             this.configService.getrefresh_token_url, { headers: this.headers, withCredentials: true }).toPromise()
         .then(response => {
-            console.log('res----->' + response['access_token']);
-            if (!response['access_token'] == null) {
-                console.log('NOT NULL');
+            const URESPONSE  = response.json();
+        
+            if (URESPONSE.access_token !== null) {
+                console.log('NOT NULL' + URESPONSE.access_token);
                 // only update the tocken
-                localStorage.setItem('access_token' , JSON.stringify(response['access_token']));
+                localStorage.setItem('access_token' , JSON.stringify(URESPONSE.access_token));
             }else {
                 console.log('NULL');
                 localStorage.removeItem('currentUser');

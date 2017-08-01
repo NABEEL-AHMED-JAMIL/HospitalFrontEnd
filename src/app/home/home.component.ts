@@ -162,7 +162,7 @@ export class HomeComponent  implements OnInit {
           message:  'Mr#: ' + data.row.mrNo + ' ||  Name : ' + data.row.name })
           .subscribe((isConfirmed: any) => {
               if (isConfirmed === 'view') {
-                 this.router.navigate(['/addnote', data.row.mrNo]);
+                 this.router.navigate(['/app-add-note', data.row.mrNo]);
                }else if (isConfirmed === 'edit') {
 
                }else if (isConfirmed === 'delete') {
