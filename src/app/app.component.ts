@@ -1,9 +1,10 @@
 // ------------Module---------------------------------------
 import { Doctor } from './_models/index';
 // ------------Routing--------------------------------------
+import { Router } from '@angular/router';
 // -----------import from the outsorce--------------------
 // -----------Component------------------------------------
-import { Component } from '@angular/core';
+import { Component , OnInit} from '@angular/core';
 // ---------------Service------------------------------
 import {SharedService, AuthenticationService } from './_services/index';
 
@@ -15,7 +16,7 @@ import {SharedService, AuthenticationService } from './_services/index';
 })
 
 
-export class AppComponent {
+export class AppComponent implements OnInit{
 
   private loginMessage: String =  'Login Please!';
   private hide: Boolean = false;
@@ -23,7 +24,7 @@ export class AppComponent {
   private username: any;
   private patient: any;
 
-  constructor(private _sharedService: SharedService, private authenticationService: AuthenticationService) {
+  constructor(private router: Router,private _sharedService: SharedService, private authenticationService: AuthenticationService) {
     this._sharedService.changeEmitted$.subscribe(status => {
       console.log('status ' + status);
       if (status) {
@@ -47,6 +48,14 @@ export class AppComponent {
       });
       this.username = null;
       this.patient = null;
+  }
+
+  ngOnInit() {
+        console.log("Pakistan zindabad");
+         if (localStorage.getItem('currentUser')) {
+           // change the direction
+           this.router.navigate(['/app-home']);
+         }
   }
 
 }
