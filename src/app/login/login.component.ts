@@ -53,25 +53,22 @@ export class LoginComponent implements OnInit {
             );
      }
 
-     public send(): any {
-         this.loadingForgot = true;
-         console.log(this.forgotPassword);
-         this.authenticationService.forGotPassWord(this.forgotPassword.email)
+    public send(): any {
+        this.loadingForgot = true;
+        this.authenticationService.forGotPassWord(this.forgotPassword.email)
             .subscribe(
                 data => {
-                    console.log('data ' + data);
                     this.alertService.success('Check Your Email');
                     this.loadingForgot = false;
                 },
                 error => {
-                    console.log('error ' + error);
                     this.alertService.error('Invalide Email!');
                     this.loadingForgot = false;
                 }
             );
      }
 
-     public hideShow(): any {
+    public hideShow(): any {
          if (this.hide) {
              this.hide = false;
          }else {

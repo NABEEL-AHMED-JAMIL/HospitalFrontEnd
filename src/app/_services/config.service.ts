@@ -12,7 +12,7 @@ export class ConfigService {
     // refresh token
     private _refresh_token_url = this._api_url  +  this._auth_url  +  '/refresh';
     // logout url
-    private _logout_url = this._auth_url  +  '/logout';
+    private _logout_url =  this._auth_url  +  '/logout';
     // register url
     private _register_url = this._api_url  +  '/register';
     // forgotPassword

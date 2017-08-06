@@ -42,7 +42,9 @@ export class AppComponent {
       this.hide = false;
       // call the method to remove the data
       this._sharedService.emitChange(false);
-      this.authenticationService.logout();
+      this.authenticationService.logout().subscribe(status => {
+        console.log('status' + status);
+      });
       this.username = null;
       this.patient = null;
   }
