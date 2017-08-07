@@ -11,10 +11,7 @@ import { DoctorType } from '../_models/index';
 @Injectable()
 export class DoctorTypeService {
 
-    private token: any;
-
     constructor(private http: Http, private configService: ConfigService) {
-        this.token = JSON.parse(localStorage.getItem('currentUser'));
      }
 
    public getAllDoctorType(): any {
@@ -33,8 +30,8 @@ export class DoctorTypeService {
    }
 
    public createNewDoctorType(doctorType: String): any {
-       console.log(this.configService.getaddDoctorType_url +  '------' +  doctorType);
-       return this.http.post(this.configService.getaddDoctorType_url, {body: doctorType, headers: this.token}).
+
+       return this.http.post(this.configService.getaddDoctorType_url, doctorType).
            map((response: Response) => { return response.json(); });
    }
 

@@ -47,8 +47,6 @@ export class AuthenticationService {
     }
 
     public logout(): any {
-        
-        console.log(this.configService.getlogout_url);
         return this.http.post(this.configService.getlogout_url, null)
         .map((response: Response) => {
             this.logoutUserStore();
@@ -62,13 +60,8 @@ export class AuthenticationService {
             toPromise().then(response => {
                 const URESPONSE = response.json();
                 if (URESPONSE.access_token && URESPONSE.doctor) {
-                    console.log('NOT NULL' + URESPONSE.access_token);
-                    // only update the tocken
                     this.loginUserStore(URESPONSE);
-                    // under process------
-                    // this.router.navigate(['/app-home']);
                 }else {
-                    console.log('NULL');
                     this.logoutUserStore();
                 }
             }).catch(() => { 
@@ -95,7 +88,6 @@ export class AuthenticationService {
     }
 
     public loginUserStore(URESPONSE: any): any{
-        console.log(URESPONSE);
         localStorage.setItem('currentUser', JSON.stringify(URESPONSE.doctor));
         localStorage.setItem('access_token' , JSON.stringify(URESPONSE.access_token));
     }

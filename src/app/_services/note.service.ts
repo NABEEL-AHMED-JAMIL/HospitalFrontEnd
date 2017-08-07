@@ -10,28 +10,25 @@ import {Note} from '../_models/index';
 @Injectable()
 export class NoteService {
 
-    private token: any;
-
     constructor(private http: Http, private configService: ConfigService) {
-        this.token = JSON.parse(localStorage.getItem('currentUser'));
      }
 
     public addNewNote(patientId: Number, note: Note): any {
-        return this.http.put(this.configService.getnewNote_url + patientId, {body: note, headers: this.token})
+        return this.http.put(this.configService.getnewNote_url + patientId, note)
             .map((response: Response) => {
                return response.json();
             });
     }
 
     public deleteNote(id: Number): any {
-        return this.http.delete(this.configService.getdeleteNote_url + id, {headers: this.token})
+        return this.http.delete(this.configService.getdeleteNote_url + id)
             .map((response: Response) => {
                return response.json();
             });
     }
 
    public updateNote(id: Number , note: Note): any {
-       return this.http.put(this.configService.getupdateNote_url + id , {body: note, headers: this.token})
+       return this.http.put(this.configService.getupdateNote_url + id , note)
             .map((response: Response) => {
                return response.json();
             });

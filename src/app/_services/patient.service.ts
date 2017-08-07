@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Http, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 // ----------------Service------------------------------
 import { ConfigService } from './config.service';
@@ -10,15 +10,14 @@ import { Note, Patient } from '../_models/index';
 
 @Injectable()
 export class PatientService {
-    private token: any;
 
     constructor(private http: Http, private configService: ConfigService) {
-        this.token = JSON.parse(localStorage.getItem('currentUser'));
+    
     }
 
     // new patient
     public newPatient(patient: Patient) {
-        return this.http.post(this.configService.getnewPatient_url, { body: patient, headers: this.token });
+        return this.http.post(this.configService.getnewPatient_url,  patient );
     }
 
     // list of patient
@@ -44,12 +43,11 @@ export class PatientService {
     }
 
     public deletePatient(mrNo: Number): any {
-        return this.http.delete(this.configService.getdeletePatient_url + mrNo, {headers: this.token});
+        return this.http.delete(this.configService.getdeletePatient_url + mrNo);
     }
 
     public updatePatient(patient: Patient): any {
-        return this.http.post(this.configService.getupdatePatient_url + patient.mrNo,
-            {body: JSON.stringify(patient), headers: this.token})
+        return this.http.post(this.configService.getupdatePatient_url + patient.mrNo, patient)
             .map((response: Response) => {
               return response.json();
             });
