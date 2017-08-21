@@ -10,7 +10,6 @@ export interface ConfirmModel {
     message: String;
 }
 
-
 @Component({
 
     selector: 'app-cd-dialog',

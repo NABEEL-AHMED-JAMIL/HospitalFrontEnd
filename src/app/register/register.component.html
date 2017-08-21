@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-4"><h2>Register Doctor</h2></div>
         <div class="col-sm-8 text-right" style="padding-top: 20px; width: 65%;">
-            <button type="button" class="btn btn-default" [routerLink]="['/home']">Back</button> 
+            <button type="button" class="btn btn-default" [routerLink]="['/app-home']">Back</button> 
             <button type="button" class="btn btn-default" (click)="showhide($event)">
                 <span class="glyphicon glyphicon-plus"></span>
                 Add New Type
@@ -99,7 +99,7 @@
                 <br>
                 <button [disabled]="loading" type="submit" class="btn btn-primary" >Register</button>
                 <img *ngIf="loading" [src]="image" />
-                <a [routerLink]="['/home']" class="btn btn-link">Cancel</a>
+                <a [routerLink]="['/app-home']" class="btn btn-link">Cancel</a>
             </div>
     </form>
     </div>
@@ -123,7 +123,7 @@
         <div class="form-group">
             <button [disabled]="loading" class="btn btn-primary">Register</button>
             <img *ngIf="loading" [src]="image" />
-            <a [routerLink]="['/home']" class="btn btn-link">Cancel</a>
+            <a [routerLink]="['/app-home']" class="btn btn-link">Cancel</a>
         </div>
     </form>
 </div>

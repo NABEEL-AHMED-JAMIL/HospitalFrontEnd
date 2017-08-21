@@ -2,8 +2,8 @@ import { Component , OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertService, DoctorTypeService, DoctorService,
     UtilService, RoleService } from '../_services/index';
-import { DoctorType, DoctorDTO , Role } from '../_models/index';
-
+import { DoctorType , Role } from '../_models/index';
+import  { DoctorDTO } from '../dto/doctorDTO';
 
 @Component({
     selector: 'app-register',
@@ -42,15 +42,12 @@ export class RegisterComponent implements OnInit{
             email: null, username: null, password: null, confirmPassword: null,
             firstname: null, lastname: null, gender: null, active: true,
             roles: [{'id': 1, 'itemName': 'ADMIN'}], doctorType: 2 };
-        console.log(this.newDocterType);
     }
 
     private registerDoctor(newDocter: DoctorDTO, isValid: boolean) {
         if (isValid) {
-            console.log(newDocter);
             this.loading = true;
             this.doctorService.create(newDocter).subscribe( data => {
-                console.log(data);
                 this.alertService.success('Registration successful', true);
                 this.router.navigate(['/home']);
             }, error => {
@@ -81,7 +78,6 @@ export class RegisterComponent implements OnInit{
     public registerDoctorType() {
         this.doctorTypeService.createNewDoctorType(this.newDocterType.dtype).subscribe(
             data => {
-                console.log(data);
                 this.alertService.success('Successful New Doctor Type');
             }, error => {
                  this.alertService.error('Already Exist');

@@ -11,9 +11,7 @@ import { Note, Patient } from '../_models/index';
 @Injectable()
 export class PatientService {
 
-    constructor(private http: Http, private configService: ConfigService) {
-    
-    }
+    constructor(private http: Http, private configService: ConfigService) { }
 
     // new patient
     public newPatient(patient: Patient) {
