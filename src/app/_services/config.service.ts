@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 export class ConfigService {
 
     // port url
-    private _api_url = 'http://localhost:8080';
+    private  _api_url = 'http://localhost:8080';
     // login url
     private _auth_url = '/auth';
     private _login_url =   this._auth_url  +  '/login';
@@ -22,7 +22,7 @@ export class ConfigService {
     // updatePassword
     private _updatePassword = this._api_url + this._auth_url + '/updatePassword/';
     // get user role
-    private _userRole = this._api_url  +  '/getRole';
+    private _userRole = this._api_url  +  '/getRoles';
 
     // doctor url's
     private _doctor_url = '/doctor';
@@ -34,7 +34,7 @@ export class ConfigService {
     private _getAllDotorTypes_url = this._api_url + this._docType_url + '/getAllDotorTypes';
     private _deleteDoctorType_url = this._api_url + this._docType_url + '/deleteDoctorType';
     private _getDoctorType_url = this._api_url + this._docType_url + '/getDoctorType/';
-    private _updateDoctorType_url = this._api_url + this._docType_url + '/updateDoctorType';
+    private _updateDoctorType_url = this._api_url + this._docType_url + '/updateDoctorType/';
     // note url's
     private _note_url = '/note';
     private _newNote_url = this._api_url + this._note_url + '/newNote/';
@@ -45,7 +45,7 @@ export class ConfigService {
     private _patient_url = '/patient';
     private _newPatient_url = this._api_url + this._patient_url + '/newPatient';
     private _getAllPatient_url = this._api_url + this._patient_url + '/getAllPatient';
-    private _getAllPatientNote_url = this._api_url + this._patient_url + '/getAllPatientNote/';
+    private _getAllPatientNote_url = this._api_url + this._patient_url + '/getAllPatientNotes/';
     private _getPatient_url = this._api_url + this._patient_url + '/getPatient/';
     private _deletePatient_url = this._api_url + this._patient_url + '/deletePatient/';
     private _updatePatient_url = this._api_url + this._patient_url + '/updatePatient/';

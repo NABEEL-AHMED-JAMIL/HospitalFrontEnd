@@ -42,15 +42,15 @@ export class AddPatientComponent implements OnInit {
                      message: 'Mr# : ' + this.patient.mrNo + ' ||  Name : ' + this.patient.name,
                 }).subscribe((isConfirmed: any) => {
                    if (isConfirmed === 'newNote') {
-                         this.router.navigate(['/addnote/', this.patient.mrNo]);
+                         this.router.navigate(['/app-add-note/', this.patient.mrNo]);
                     }else if (isConfirmed === 'delete') {
                         this.patientService.deletePatient(this.patient.mrNo)
                             .subscribe( data => {
-                                this.router.navigate(['/home']); },
-                                error => { this.router.navigate(['/home']);}
+                                this.router.navigate(['/app-home']); },
+                                error => { this.router.navigate(['/app-home']);}
                             );
                     }else if (isConfirmed === 'cancel') {
-                        this.router.navigate(['/home']);
+                        this.router.navigate(['/app-home']);
                     }
                 });
             }, error => {

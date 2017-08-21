@@ -1,5 +1,5 @@
 import { Component , OnInit } from '@angular/core';
-import { DoctorDTO } from '../_models/index';
+import { DoctorDTO } from '../dto/index';
 import { AlertService, UtilService, AuthenticationService } from '../_services/index';
 import { Router, ActivatedRoute } from '@angular/router';
 
