@@ -88,6 +88,8 @@ export class AuthenticationService {
     }
 
     public loginUserStore(URESPONSE: any): any{
+        // // store username and jwt token in local storage to keep user logged in between page refreshes
+        // localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
         localStorage.setItem('currentUser', JSON.stringify(URESPONSE.doctor));
         localStorage.setItem('access_token' , JSON.stringify(URESPONSE.access_token));
     }

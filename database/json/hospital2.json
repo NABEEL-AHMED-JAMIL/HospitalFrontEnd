@@ -1,0 +1,271 @@
+/**
+ Export to JSON plugin for PHPMyAdmin
+ @version 4.6.5.2
+ */
+
+// Database 'hospital2'
+
+// hospital2.doctor
+
+[{
+	"id": "1",
+	"active": "1",
+	"email": "alinayet@gmail.com",
+	"firstname": "ALI",
+	"gender": "1",
+	"lastname": "ALI",
+	"password": "$2a$10$CEz4pQBfQRCJNZb1I6swkus0l4\/81PPegtyoFkrT983nFS1Ogsd.6",
+	"username": "alinayet@gmail.com",
+	"doctor_type_id": "3",
+	"created_at": "2017-07-24 00:48:52",
+	"updated_at": "2017-07-24 00:48:52",
+	"deleted_at": null,
+	"confirm_password": null
+}, {
+	"id": "2",
+	"active": "1",
+	"email": "nabeel.amd93@gmail.com",
+	"firstname": "Abubakar",
+	"gender": "1",
+	"lastname": "Zafar",
+	"password": "$2a$10$CBKbTr3h5nc5S6DtBdmQ8.PAC8kuoqk\/AAOWfw3Hw54GqqsdT1x4G",
+	"username": "nabeel.amd93@gmail.com",
+	"doctor_type_id": "3",
+	"created_at": "2017-07-21 00:11:31",
+	"updated_at": "2017-08-21 07:26:51",
+	"deleted_at": null,
+	"confirm_password": null
+}]
+
+// hospital2.doctor_roles
+
+[{
+	"doctor_id": "1",
+	"role_id": "1"
+}, {
+	"doctor_id": "1",
+	"role_id": "2"
+}, {
+	"doctor_id": "1",
+	"role_id": "4"
+}, {
+	"doctor_id": "2",
+	"role_id": "1"
+}]
+
+// hospital2.doctor_type
+
+[{
+	"id": "1",
+	"type": "ALL"
+}, {
+	"id": "2",
+	"type": "Gyn"
+}, {
+	"id": "3",
+	"type": "Peeds"
+}]
+
+// hospital2.note
+
+[{
+	"id": "2",
+	"note": "skdfjlskdjf;lksjflk;sjdlk",
+	"note_date": "2017-07-21",
+	"doctor_id": "1",
+	"doctor_type_id": "2",
+	"mr_no": "2"
+}, {
+	"id": "3",
+	"note": "dsd",
+	"note_date": "2017-07-22",
+	"doctor_id": "2",
+	"doctor_type_id": "3",
+	"mr_no": "2"
+}, {
+	"id": "4",
+	"note": "<p>pakistan zindabad<\/p>",
+	"note_date": "2017-07-22",
+	"doctor_id": "1",
+	"doctor_type_id": "3",
+	"mr_no": "32"
+}, {
+	"id": "5",
+	"note": "<p>sdsdffdgfgghf<\/p>",
+	"note_date": "2017-07-22",
+	"doctor_id": "1",
+	"doctor_type_id": "2",
+	"mr_no": "41"
+}, {
+	"id": "6",
+	"note": "<p>yyyy<\/p>",
+	"note_date": "2017-07-22",
+	"doctor_id": "1",
+	"doctor_type_id": "3",
+	"mr_no": "41"
+}, {
+	"id": "7",
+	"note": "<p>jjj<\/p>",
+	"note_date": "2017-07-22",
+	"doctor_id": "1",
+	"doctor_type_id": "3",
+	"mr_no": "41"
+}, {
+	"id": "8",
+	"note": "<p>gghgggh<\/p>",
+	"note_date": "2017-07-22",
+	"doctor_id": "1",
+	"doctor_type_id": "3",
+	"mr_no": "41"
+}, {
+	"id": "9",
+	"note": "<p>ggg<\/p>",
+	"note_date": "2017-07-22",
+	"doctor_id": "1",
+	"doctor_type_id": "3",
+	"mr_no": "41"
+}, {
+	"id": "10",
+	"note": "<p>Sorry<\/p>",
+	"note_date": "2017-07-22",
+	"doctor_id": "1",
+	"doctor_type_id": "2",
+	"mr_no": "41"
+}, {
+	"id": "12",
+	"note": "<p><strong>English Poetry<\/strong> - Express your feeling with Pakistan&rsquo;s largest collection of English Poetry. Read, submit and share your favorite English Shayari. Find 55 English Poetry, Last Updated on Saturday, July 22 2017. <strong>English poetry<\/strong> is for those who prefer to express their sentiments in English language. The online English readers of HamariWeb can facilitate from the exclusive English poetry collection updated on regular basis. English Poetry has many variations like love poems and romantic poetry, English poems, quotes and metaphors. Some of the amazing English poets like William Shakespeare, William Wo... <a href=\"http:\/\/www.hamariweb.com\/poetries\/english_poetries45.aspx#desc\">View More<\/a><\/p>",
+	"note_date": "2017-07-23",
+	"doctor_id": "1",
+	"doctor_type_id": "3",
+	"mr_no": "32"
+}, {
+	"id": "13",
+	"note": "<p>hhhhhhhhhhhhhhhhhhhhh<\/p>",
+	"note_date": "2017-07-23",
+	"doctor_id": "1",
+	"doctor_type_id": "3",
+	"mr_no": "42"
+}]
+
+// hospital2.patient
+
+[{
+	"mr_no": "2",
+	"age": "25",
+	"name": "nabeel",
+	"phone": "123456"
+}, {
+	"mr_no": "4",
+	"age": "5",
+	"name": "nabeel ahmed",
+	"phone": "45pdfa"
+}, {
+	"mr_no": "5",
+	"age": "55",
+	"name": "pakistan",
+	"phone": "12369873"
+}, {
+	"mr_no": "17",
+	"age": "3",
+	"name": "dfsd",
+	"phone": "fsdfs"
+}, {
+	"mr_no": "19",
+	"age": "2",
+	"name": "sdfsd",
+	"phone": "dsfsdfsd"
+}, {
+	"mr_no": "28",
+	"age": "11",
+	"name": "11",
+	"phone": "11"
+}, {
+	"mr_no": "30",
+	"age": "44",
+	"name": "25",
+	"phone": "99"
+}, {
+	"mr_no": "31",
+	"age": "3",
+	"name": "dd",
+	"phone": "d"
+}, {
+	"mr_no": "32",
+	"age": "3",
+	"name": "dd",
+	"phone": "dd"
+}, {
+	"mr_no": "34",
+	"age": "5",
+	"name": "5",
+	"phone": "tt"
+}, {
+	"mr_no": "35",
+	"age": "66",
+	"name": "55",
+	"phone": "66"
+}, {
+	"mr_no": "37",
+	"age": "77",
+	"name": "1236",
+	"phone": "123"
+}, {
+	"mr_no": "38",
+	"age": "88",
+	"name": "123654",
+	"phone": "888"
+}, {
+	"mr_no": "39",
+	"age": "22",
+	"name": "ss",
+	"phone": "ss"
+}, {
+	"mr_no": "40",
+	"age": "3",
+	"name": "dd",
+	"phone": "rr"
+}, {
+	"mr_no": "41",
+	"age": "33",
+	"name": "dsfsd",
+	"phone": "sdfs"
+}, {
+	"mr_no": "42",
+	"age": "5",
+	"name": "gg",
+	"phone": "gg"
+}, {
+	"mr_no": "43",
+	"age": "12365",
+	"name": "PAKISTAN",
+	"phone": "ZINDABAD"
+}, {
+	"mr_no": "44",
+	"age": "1111",
+	"name": "DFSD",
+	"phone": "DFSDFS"
+}, {
+	"mr_no": "45",
+	"age": "22",
+	"name": "dfs",
+	"phone": "22"
+}]
+
+// hospital2.role
+
+[{
+	"id": "1",
+	"role": "ROLE_ADMIN",
+	"created_at": "2017-07-04 00:00:00",
+	"updated_at": "2017-07-04 00:00:00"
+}, {
+	"id": "2",
+	"role": "ROLE_USER",
+	"created_at": "2017-07-15 00:00:00",
+	"updated_at": "2017-07-15 00:26:34"
+}, {
+	"id": "4",
+	"role": "ROLE_DBA",
+	"created_at": "2017-08-02 00:00:00",
+	"updated_at": "2017-08-02 00:00:00"
+}]
