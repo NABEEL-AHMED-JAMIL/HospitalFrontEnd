@@ -16,7 +16,12 @@ https://github.com/NABEEL-AHMED-JAMIL/HospitalFrontEnd/tree/master/screenshoot
 
 #
 for more image you can find here https://github.com/NABEEL-AHMED-JAMIL/HospitalFrontEnd/tree/master/screenshoot
+```
 import { Location } from '@angular/common';
 goBack(): void {
     this.location.back();
   }
+this.route.params
+  .switchMap((params: Params) => this.dataService.getCustomer(+params['id']))
+    .subscribe(customer => this.customer = customer);
+```
