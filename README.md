@@ -16,4 +16,7 @@ https://github.com/NABEEL-AHMED-JAMIL/HospitalFrontEnd/tree/master/screenshoot
 
 #
 for more image you can find here https://github.com/NABEEL-AHMED-JAMIL/HospitalFrontEnd/tree/master/screenshoot
-
+import { Location } from '@angular/common';
+goBack(): void {
+    this.location.back();
+  }
