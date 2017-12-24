@@ -24,4 +24,9 @@ goBack(): void {
 this.route.params
   .switchMap((params: Params) => this.dataService.getCustomer(+params['id']))
     .subscribe(customer => this.customer = customer);
+<nav>
+	<a routerLink="customer" class="btn btn-primary active" role="button" routerLinkActive="active">Customers</a> 
+	<a routerLink="add" class="btn btn-primary active" role="button" routerLinkActive="active">Add</a>
+</nav>
+<router-outlet></router-outlet>
 ```
